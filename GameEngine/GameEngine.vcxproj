@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\SDL2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\graphics;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\utils;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\SDL2\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -132,7 +132,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\Font.cpp" />
+    <ClCompile Include="src\graphics\Graphics.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\utils\Vec2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\graphics\Font.h" />
+    <ClInclude Include="src\graphics\Graphics.h" />
+    <ClInclude Include="src\graphics\GraphicsConstants.h" />
+    <ClInclude Include="src\utils\Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

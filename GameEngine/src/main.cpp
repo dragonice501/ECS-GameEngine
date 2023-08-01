@@ -50,7 +50,15 @@ void Render()
 {
 	Graphics::ClearScreen(0xFF111122);
 
-	Graphics::DrawString(Graphics::ScreenWidth() * 0.5f - Font::GetStringFontLength("Hello World") * 0.5f, Graphics::ScreenHeight() * 0.5f, "Hello World", 0xFFFF0000, false);
+	Graphics::DrawString(
+		Graphics::ScreenWidth() * 0.5f,
+		Graphics::ScreenHeight() * 0.5f,
+		"Hello World",
+		Center,
+		Middle,
+		0xFFFF0000
+	);
+	//Graphics::DrawPixel(Graphics::ScreenWidth() * 0.5f, Graphics::ScreenHeight() * 0.5f, 0xFF00FF00);
 
 	Graphics::RenderFrame();
 }

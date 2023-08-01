@@ -1,6 +1,7 @@
 #include "Graphics.h"
-#include "GraphicsConstants.h"
+#include "../Utils/Constants.h"
 #include "Font.h"
+
 #include <iostream>
 
 int Graphics::windowWidth = 0;
@@ -286,11 +287,57 @@ void Graphics::DrawChar(const int& x, const int& y, const char& character, const
     }
 }
 
-void Graphics::DrawString(const int& x, const int& y, const char* string, const uint32_t& color, const bool& lockToScreen)
+void Graphics::DrawString(
+    const int& x,
+    const int& y,
+    const char* string,
+    const TextHorizontalAlignment& horizontalAlignment,
+    const TextVerticalAlignment& verticalAlignement,
+    const uint32_t& color,
+    const bool& lockToScreen)
 {
     int i = 0;
-    int xPos = x;
-    int yPos = y;
+
+    int xPos;
+    int yPos;
+    switch (horizontalAlignment)
+    {
+        case Left:
+        {
+            xPos = x;
+            break;
+        }
+        case Center:
+        {
+            xPos = x - (Font::GetStringFontLength(string) / 2);
+            break;
+        }
+        case Right:
+        {
+            xPos = x - Font::GetStringFontLength(string);
+            break;
+        }
+    }
+
+    switch (verticalAlignement)
+    {
+        case Top:
+        {
+            yPos = y;
+            break;
+        }
+        case Middle:
+        {
+            yPos = y - Font::fontHeight / 2;
+            break;
+        }
+        case Bottom:
+        {
+            yPos = y - Font::fontHeight;
+            break;
+        }
+    }
+
     while (string[i] != '\0')
     {
         DrawChar(xPos, yPos, string[i], color, lockToScreen);

@@ -18,27 +18,27 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Font.cpp">
+    <ClCompile Include="src\Graphics\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Graphics.cpp">
+    <ClCompile Include="src\Graphics\Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\Vec2.cpp">
+    <ClCompile Include="src\Utils\Vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\graphics\Font.h">
+    <ClInclude Include="src\Graphics\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\Graphics.h">
+    <ClInclude Include="src\Graphics\Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\GraphicsConstants.h">
+    <ClInclude Include="src\Utils\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\Vec2.h">
+    <ClInclude Include="src\Utils\Vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

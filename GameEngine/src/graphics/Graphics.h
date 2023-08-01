@@ -7,6 +7,20 @@
 #include <vector>
 #include <string>
 
+enum TextHorizontalAlignment
+{
+    Left,
+    Center,
+    Right,
+};
+
+enum TextVerticalAlignment
+{
+    Top,
+    Middle,
+    Bottom,
+};
+
 struct Graphics
 {
     static int windowWidth;
@@ -41,18 +55,25 @@ struct Graphics
     static void RenderFrame();
 
     static void DrawPixel(const int& x, const int& y, const uint32_t& color);
-    static void DrawLine(const int& x0, const int& y0, const int& x1, const int& y1, const uint32_t& color, const bool& lockToScreen);
+    static void DrawLine(const int& x0, const int& y0, const int& x1, const int& y1, const uint32_t& color, const bool& lockToScreen = true);
     static void DrawGrid(const uint32_t& color);
     static void DrawRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color);
     static void DrawFillRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color);
-    static void DrawCircle(const int& x, const int& y, const int& radius, const float& angle, const uint32_t& color, const bool& lockToScreen);
+    static void DrawCircle(const int& x, const int& y, const int& radius, const float& angle, const uint32_t& color, const bool& lockToScreen = true);
     static void DrawFillCircle(const int& x, const int& y, const int& radius, const uint32_t& color);
-    static void DrawPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen);
-    static void DrawFillPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen);
+    static void DrawPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen = true);
+    static void DrawFillPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen = true);
     static void DrawTexture(const int& x, const int& y, const int& width, const int& height, const float& rotation, SDL_Texture* texture);
 
-    static void DrawChar(const int& x, const int& y, const char& character, const uint32_t& color, const bool& lockToScreen);
-    static void DrawString(const int& x, const int& y, const char* string, const uint32_t& color, const bool& lockToScreen);
+    static void DrawChar(const int& x, const int& y, const char& character, const uint32_t& color, const bool& lockToScreen = true);
+    static void DrawString(
+        const int& x,
+        const int& y,
+        const char* string,
+        const TextHorizontalAlignment& horizontalAlignment,
+        const TextVerticalAlignment& verticalAlignement,
+        const uint32_t& color,
+        const bool& lockToScreen = true);
 
-    static void DisplayBresenhamCircle(const int& xc, const int& yc, const int& x0, const int& y0, const uint32_t& color, const bool& lockToScreen);
+    static void DisplayBresenhamCircle(const int& xc, const int& yc, const int& x0, const int& y0, const uint32_t& color, const bool& lockToScreen = true);
 };

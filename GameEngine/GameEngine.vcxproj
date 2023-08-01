@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Graphics;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Utils;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\SDL2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Graphics;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Input;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Scenes;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Utils;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\SDL2\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -132,16 +132,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scenes\SceneMainMenu.cpp" />
     <ClCompile Include="src\Graphics\Font.cpp" />
     <ClCompile Include="src\Graphics\Graphics.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Utils\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\SceneMainMenu.h" />
     <ClInclude Include="src\Graphics\Font.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
+    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Scenes\Scene.h" />
     <ClInclude Include="src\Utils\Constants.h" />
     <ClInclude Include="src\Utils\Vec2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Scenes\Scene_Template.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

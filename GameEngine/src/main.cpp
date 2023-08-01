@@ -1,10 +1,14 @@
 #include <stdbool.h>
 #include <SDL.h>
 
-#include "graphics/Graphics.h"
-#include "graphics/Font.h"
+#include "Graphics/Graphics.h"
+#include "Graphics/Font.h"
+
+#include "Scenes/SceneMainMenu.h"
 
 bool isRunning = false;
+
+SceneMainMenu mainMenu;
 
 bool Init()
 {
@@ -18,49 +22,7 @@ void Setup()
 
 void Destroy()
 {
-
-}
-
-void Input()
-{
-	SDL_Event sdlEvent;
-	while (SDL_PollEvent(&sdlEvent))
-	{
-		switch (sdlEvent.type)
-		{
-			case SDL_QUIT:
-			{
-				isRunning = false;
-			}
-			case SDL_KEYDOWN:
-			{
-				if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
-					isRunning = false;
-			}
-		}
-	}
-}
-
-void Update()
-{
-
-}
-
-void Render()
-{
-	Graphics::ClearScreen(0xFF111122);
-
-	Graphics::DrawString(
-		Graphics::ScreenWidth() * 0.5f,
-		Graphics::ScreenHeight() * 0.5f,
-		"Hello World",
-		Center,
-		Middle,
-		0xFFFF0000
-	);
-	//Graphics::DrawPixel(Graphics::ScreenWidth() * 0.5f, Graphics::ScreenHeight() * 0.5f, 0xFF00FF00);
-
-	Graphics::RenderFrame();
+	Graphics::CloseWindow();
 }
 
 int main(int argv, char* argc[])
@@ -68,11 +30,13 @@ int main(int argv, char* argc[])
 	isRunning = Init();
 	Setup();
 
-	while (isRunning)
+	while (mainMenu.IsRunning())
 	{
-		Input();
-		Update();
-		Render();
+		Input::Instance()->Update();
+
+		mainMenu.Input();
+		mainMenu.Update(0.0f);
+		mainMenu.Render();
 	}
 
 	Destroy();

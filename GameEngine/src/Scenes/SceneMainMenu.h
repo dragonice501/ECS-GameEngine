@@ -11,6 +11,4 @@ public:
 	void Input() override;
 	void Update(float dt) override;
 	void Render() override;
-
-	//inline const bool IsRunning() const override { return mIsRunning; }
 };

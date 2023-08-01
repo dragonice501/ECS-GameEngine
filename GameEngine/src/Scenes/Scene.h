@@ -6,7 +6,7 @@
 class Scene
 {
 public:
-	virtual ~Scene() = default;
+	virtual ~Scene() {};
 
 	virtual void Input() = 0;
 	virtual void Update(float dt) = 0;

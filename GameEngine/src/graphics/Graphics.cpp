@@ -229,14 +229,20 @@ void Graphics::DrawFillCircle(const int& x, const int& y, const int& radius, con
     int topLeftX = x - pRadius;
     int topLeftY = y - pRadius;
 
-    for (int i = topLeftY; i < topLeftY + pRadius * 2 + 1; i++)
+    for (int i = topLeftY; i < topLeftY + pRadius + 1; i++)
     {
-        for (int j = topLeftX; j < topLeftX + pRadius * 2 + 1; j++)
+        for (int j = topLeftX; j < topLeftX + pRadius + 1; j++)
         {
             Vec2 point = { static_cast<float>(x - j), static_cast<float>(y - i) };
 
             if (point.MagnitudeSquared() < pRadius * pRadius)
+            {
                 DrawPixel(j + screenOffset.x, i + screenOffset.y, color);
+
+                DrawPixel(j + screenOffset.x + (x - j) * 2, i + screenOffset.y, color);
+                DrawPixel(j + screenOffset.x, i + screenOffset.y + (y - i) * 2, color);
+                DrawPixel(j + screenOffset.x + (x - j) * 2, i + screenOffset.y + (y - i) * 2, color);
+            }
         }
     }
 }

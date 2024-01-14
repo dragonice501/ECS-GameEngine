@@ -2,33 +2,27 @@
 
 #include "../Scenes/Scene.h"
 #include "../Scenes/SceneMainMenu.h"
+#include "../Scenes/SceneCellularAutomata.h"
 
-#include <vector>
-#include <string>
+#include "../Managers/GameManager.h"
+#include "../Managers/GraphicsManager.h"
 
-enum SceneName
-{
-	MainMenu
-};
+#include <memory>
 
 class SceneManager
 {
 public:
-	static SceneManager* Instance();
+	static void LoadScene();
 
-	void CreateScene(const SceneName& sceneName);
+	static void CurrentSceneInput();
+	static void CurrentSceneUpdate(const float dt);
+	static void CurrentSceneRender();
 
-	inline void DeleteCurrentScene() { delete currentScene; }
-
-	inline Scene* GetCurrentScene() { return currentScene; }
-
-	inline void SetCurrentScene(Scene* newScene) { currentScene = newScene; }
+	static void CurrentSceneShutdown();
 
 private:
-	SceneManager();
-	SceneManager(const SceneManager&);
-	SceneManager& operator=(SceneManager&);
+	SceneManager() {};
+	~SceneManager() {};
 
-	Scene* currentScene = nullptr;
-	std::vector<Scene*> sceneStack;
+	static std::unique_ptr<Scene> mCurrentScene;
 };

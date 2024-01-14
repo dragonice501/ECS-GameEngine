@@ -1,37 +1,34 @@
 #include "SceneMainMenu.h"
+#include "../Managers/SceneManager.h"
 
 SceneMainMenu::SceneMainMenu()
 {
-	mIsRunning = true;
+	
 }
 
 SceneMainMenu::~SceneMainMenu()
 {
 }
 
+void SceneMainMenu::Setup(SDL_Renderer* renderer)
+{
+}
+
+void SceneMainMenu::Shutdown()
+{
+}
+
 void SceneMainMenu::Input()
 {
-	if (Input::Instance()->IsKeyPressed())
-	{
-		if (Input::Instance()->GetKeyDown() == SDLK_ESCAPE)
-		{
-			mIsRunning = false;
-		}
-	}
+	
 }
 
 void SceneMainMenu::Update(float dt)
 {
+	mParticle.Update(dt);
 }
 
-void SceneMainMenu::Render()
+void SceneMainMenu::Render(static SDL_Renderer* renderer, SDL_Rect& camera)
 {
-	Graphics::DrawString(
-		Graphics::ScreenWidth() * 0.5f,
-		Graphics::ScreenHeight() * 0.5f,
-		"Hello World",
-		Center,
-		Middle,
-		0xFFFF0000
-	);
+	mParticle.Render();
 }

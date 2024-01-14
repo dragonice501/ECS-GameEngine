@@ -21,13 +21,13 @@
     <ClCompile Include="src\Graphics\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Graphics.cpp">
+    <ClCompile Include="src\Managers\GraphicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\Vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Input\Input.cpp">
+    <ClCompile Include="src\Managers\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scenes\SceneMainMenu.cpp">
@@ -36,12 +36,27 @@
     <ClCompile Include="src\Managers\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Managers\AssetManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Managers\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\SceneCellularAutomata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Graphics\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\Graphics.h">
+    <ClInclude Include="src\Managers\GraphicsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils\Constants.h">
@@ -53,7 +68,7 @@
     <ClInclude Include="src\Scenes\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Input\Input.h">
+    <ClInclude Include="src\Managers\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scenes\SceneMainMenu.h">
@@ -294,6 +309,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libraries\SDL2\include\SDL_vulkan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Managers\AssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Managers\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\SceneCellularAutomata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

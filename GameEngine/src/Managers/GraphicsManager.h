@@ -7,22 +7,25 @@
 #include <vector>
 #include <string>
 
-enum TextHorizontalAlignment
+class GraphicsManager
 {
-    Left,
-    Center,
-    Right,
-};
 
-enum TextVerticalAlignment
-{
-    Top,
-    Middle,
-    Bottom,
-};
+public:
+    enum TextHorizontalAlignment
+    {
+        Left,
+        Center,
+        Right,
+    };
 
-struct Graphics
-{
+    enum TextVerticalAlignment
+    {
+        Top,
+        Middle,
+        Bottom,
+    };
+
+private:
     static int windowWidth;
     static int windowHeight;
     static int screenWidth;
@@ -33,9 +36,12 @@ struct Graphics
     static SDL_Window* window;
     static SDL_Renderer* renderer;
 
+    static SDL_Rect camera;
+
     static Vec2 screenOffset;
     static float screenZoom;
 
+public:
     static bool OpenWindow();
     static void CloseWindow();
 
@@ -43,6 +49,9 @@ struct Graphics
     static int WindowHeight();
     static int ScreenWidth();
     static int ScreenHeight();
+
+    static SDL_Renderer* Renderer() { return renderer; }
+    static SDL_Rect& Camera() { return camera; }
 
     static void AdjustScreenOffset(const Vec2& offset);
     static void ResetScreenOffset();
@@ -52,9 +61,9 @@ struct Graphics
     static bool CircleOffScreen(const int& x, const int& y, const float& radius);
 
     static void ClearScreen(const uint32_t& color);
-    static void RenderFrame();
+    static void PresentRender();
 
-    static void DrawPixel(const int& x, const int& y, const uint32_t& color);
+    static void DrawPixel(const int x, const int y, const uint32_t& color);
     static void DrawLine(const int& x0, const int& y0, const int& x1, const int& y1, const uint32_t& color, const bool& lockToScreen = true);
     static void DrawGrid(const uint32_t& color);
     static void DrawRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color);
@@ -70,9 +79,9 @@ struct Graphics
         const int& x,
         const int& y,
         const char* string,
-        const TextHorizontalAlignment& horizontalAlignment,
-        const TextVerticalAlignment& verticalAlignement,
-        const uint32_t& color,
+        const TextHorizontalAlignment& horizontalAlignment = Left,
+        const TextVerticalAlignment& verticalAlignement = Top,
+        const uint32_t& color = 0xFFFF0000,
         const bool& lockToScreen = true);
 
     static void DisplayBresenhamCircle(const int& xc, const int& yc, const int& x0, const int& y0, const uint32_t& color, const bool& lockToScreen = true);

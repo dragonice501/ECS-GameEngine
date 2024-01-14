@@ -133,15 +133,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scenes\SceneCellularAutomata.cpp" />
+    <ClCompile Include="src\Objects\Particle.cpp" />
+    <ClCompile Include="src\Managers\GameManager.cpp" />
+    <ClCompile Include="src\Managers\AssetManager.cpp" />
+    <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Managers\SceneManager.cpp" />
     <ClCompile Include="src\Scenes\SceneMainMenu.cpp" />
     <ClCompile Include="src\Graphics\Font.cpp" />
-    <ClCompile Include="src\Graphics\Graphics.cpp" />
-    <ClCompile Include="src\Input\Input.cpp" />
+    <ClCompile Include="src\Managers\GraphicsManager.cpp" />
+    <ClCompile Include="src\Managers\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Utils\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scenes\SceneCellularAutomata.h" />
+    <ClInclude Include="src\Objects\Particle.h" />
+    <ClInclude Include="src\Managers\GameManager.h" />
+    <ClInclude Include="src\Managers\AssetManager.h" />
+    <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="libraries\SDL2\include\begin_code.h" />
     <ClInclude Include="libraries\SDL2\include\close_code.h" />
     <ClInclude Include="libraries\SDL2\include\SDL.h" />
@@ -223,8 +233,8 @@
     <ClInclude Include="src\Managers\SceneManager.h" />
     <ClInclude Include="src\Scenes\SceneMainMenu.h" />
     <ClInclude Include="src\Graphics\Font.h" />
-    <ClInclude Include="src\Graphics\Graphics.h" />
-    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Managers\GraphicsManager.h" />
+    <ClInclude Include="src\Managers\InputManager.h" />
     <ClInclude Include="src\Scenes\Scene.h" />
     <ClInclude Include="src\Utils\Constants.h" />
     <ClInclude Include="src\Utils\Vec2.h" />

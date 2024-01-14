@@ -11,5 +11,5 @@ struct Font
 
 	static int GetStringFontLength(const char* string);
 
-	static std::map<char, std::array<bool, 15>> fontMap;
+	static std::map<char, std::array<bool, 45>> fontMap;
 };

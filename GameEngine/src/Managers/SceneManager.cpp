@@ -1,31 +1,36 @@
 #include "SceneManager.h"
 
-SceneManager* SceneManager::Instance()
+std::unique_ptr<Scene> SceneManager::mCurrentScene = nullptr;
+
+void SceneManager::LoadScene()
 {
-    static SceneManager* sceneManager = new SceneManager();
-    return sceneManager;
+	if (mCurrentScene)
+	{
+		mCurrentScene->Shutdown();
+		mCurrentScene.reset();
+	}
+
+	mCurrentScene = std::make_unique<SceneCellularAutomata>();
+
+	if (mCurrentScene) mCurrentScene->Setup(GraphicsManager::Renderer());
 }
 
-SceneManager::SceneManager()
+void SceneManager::CurrentSceneInput()
 {
-
+	mCurrentScene->Input();
 }
 
-void SceneManager::CreateScene(const SceneName& sceneName)
+void SceneManager::CurrentSceneUpdate(const float dt)
 {
-    if (currentScene)
-    {
-        delete currentScene;
-    }
+	mCurrentScene->Update(dt);
+}
 
-    switch (sceneName)
-    {
-        case MainMenu:
-        {
-            currentScene = new SceneMainMenu();
-            break;
-        }
+void SceneManager::CurrentSceneRender()
+{
+	mCurrentScene->Render(GraphicsManager::Renderer(), GraphicsManager::Camera());
+}
 
-        return;
-    }
+void SceneManager::CurrentSceneShutdown()
+{
+	mCurrentScene->Shutdown();
 }

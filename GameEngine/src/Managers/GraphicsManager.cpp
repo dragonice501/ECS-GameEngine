@@ -1,23 +1,25 @@
-#include "Graphics.h"
+#include "GraphicsManager.h"
 #include "../Utils/Constants.h"
 #include "Font.h"
 
 #include <iostream>
 
-int Graphics::windowWidth = 0;
-int Graphics::windowHeight = 0;
-int Graphics::screenWidth = 0;
-int Graphics::screenHeight = 0;
+int GraphicsManager::windowWidth = 0;
+int GraphicsManager::windowHeight = 0;
+int GraphicsManager::screenWidth = 0;
+int GraphicsManager::screenHeight = 0;
 
-uint32_t* Graphics::colorBuffer = nullptr;
-SDL_Texture* Graphics::colorBufferTexture = nullptr;
-SDL_Window* Graphics::window = nullptr;
-SDL_Renderer* Graphics::renderer = nullptr;
+uint32_t* GraphicsManager::colorBuffer = nullptr;
+SDL_Texture* GraphicsManager::colorBufferTexture = nullptr;
+SDL_Window* GraphicsManager::window = nullptr;
+SDL_Renderer* GraphicsManager::renderer = nullptr;
 
-Vec2 Graphics::screenOffset = { 0.0f, 0.0f };
-float Graphics::screenZoom = 1.0f;
+SDL_Rect GraphicsManager::camera;
 
-bool Graphics::OpenWindow()
+Vec2 GraphicsManager::screenOffset = { 0.0f, 0.0f };
+float GraphicsManager::screenZoom = 1.0f;
+
+bool GraphicsManager::OpenWindow()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
@@ -29,8 +31,12 @@ bool Graphics::OpenWindow()
     SDL_GetCurrentDisplayMode(0, &display_mode);
     windowWidth = display_mode.w;
     windowHeight = display_mode.h;
+    windowWidth = 1280;
+    windowHeight = 720;
+
     screenWidth = windowWidth * SCREEN_SCALE;
     screenHeight = windowHeight * SCREEN_SCALE;
+
     window = SDL_CreateWindow(nullptr, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_BORDERLESS);
     if (!window)
     {
@@ -51,7 +57,7 @@ bool Graphics::OpenWindow()
     return true;
 }
 
-void Graphics::CloseWindow(void)
+void GraphicsManager::CloseWindow(void)
 {
     delete[] colorBuffer;
     SDL_DestroyRenderer(renderer);
@@ -59,43 +65,43 @@ void Graphics::CloseWindow(void)
     SDL_Quit();
 }
 
-int Graphics::WindowWidth()
+int GraphicsManager::WindowWidth()
 {
     return windowWidth;
 }
 
-int Graphics::WindowHeight()
+int GraphicsManager::WindowHeight()
 {
     return windowHeight;
 }
 
-int Graphics::ScreenWidth()
+int GraphicsManager::ScreenWidth()
 {
     return screenWidth;
 }
 
-int Graphics::ScreenHeight()
+int GraphicsManager::ScreenHeight()
 {
     return screenHeight;
 }
 
-void Graphics::AdjustScreenOffset(const Vec2& offset)
+void GraphicsManager::AdjustScreenOffset(const Vec2& offset)
 {
     screenOffset.x += offset.x;
     screenOffset.y += offset.y;
 }
 
-void Graphics::ResetScreenOffset()
+void GraphicsManager::ResetScreenOffset()
 {
     screenOffset = { 0.0f, 0.0f };
 }
 
-void Graphics::ScrollZoom(const int& scroll)
+void GraphicsManager::ScrollZoom(const int& scroll)
 {
     screenZoom += static_cast<float>(scroll) * 0.25f;
 }
 
-bool Graphics::CircleOffScreen(const int& x, const int& y, const float& radius)
+bool GraphicsManager::CircleOffScreen(const int& x, const int& y, const float& radius)
 {
     return
         x + radius + screenOffset.x < 0 ||
@@ -105,7 +111,7 @@ bool Graphics::CircleOffScreen(const int& x, const int& y, const float& radius)
 
 }
 
-void Graphics::ClearScreen(const uint32_t& color)
+void GraphicsManager::ClearScreen(const uint32_t& color)
 {
     for (int i = 0; i < screenWidth * screenHeight; i++)
     {
@@ -115,21 +121,22 @@ void Graphics::ClearScreen(const uint32_t& color)
     SDL_RenderClear(renderer);
 }
 
-void Graphics::RenderFrame()
+void GraphicsManager::PresentRender()
 {
     SDL_UpdateTexture(colorBufferTexture, nullptr, colorBuffer, sizeof(uint32_t) * screenWidth);
     SDL_RenderCopy(renderer, colorBufferTexture, nullptr, nullptr);
+
     SDL_RenderPresent(renderer);
 }
 
-void Graphics::DrawPixel(const int& x, const int& y, const uint32_t& color)
+void GraphicsManager::DrawPixel(const int x, const int y, const uint32_t& color)
 {
     if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight) return;
 
     colorBuffer[x + y * screenWidth] = color;
 }
 
-void Graphics::DrawLine(const int& x0, const int& y0, const int& x1, const int& y1, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawLine(const int& x0, const int& y0, const int& x1, const int& y1, const uint32_t& color, const bool& lockToScreen)
 {
     float x = x0;
     float y = y0;
@@ -152,7 +159,7 @@ void Graphics::DrawLine(const int& x0, const int& y0, const int& x1, const int& 
     }
 }
 
-void Graphics::DrawGrid(const uint32_t& color)
+void GraphicsManager::DrawGrid(const uint32_t& color)
 {
     for (int y = 0; y < screenHeight; y++)
     {
@@ -164,7 +171,7 @@ void Graphics::DrawGrid(const uint32_t& color)
     }
 }
 
-void Graphics::DrawRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color)
+void GraphicsManager::DrawRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color)
 {
     DrawPixel(x + width / 2, y + height / 2, color);
 
@@ -181,7 +188,7 @@ void Graphics::DrawRect(const int& x, const int& y, const int& width, const int&
         colorBuffer[i + (y + height) * screenWidth] = color;
 }
 
-void Graphics::DrawFillRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color)
+void GraphicsManager::DrawFillRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color)
 {
     for (int i = y; i < y + height; i++)
     {
@@ -192,7 +199,7 @@ void Graphics::DrawFillRect(const int& x, const int& y, const int& width, const 
     }
 }
 
-void Graphics::DrawCircle(const int& x, const int& y, const int& radius, const float& angle, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawCircle(const int& x, const int& y, const int& radius, const float& angle, const uint32_t& color, const bool& lockToScreen)
 {
     if (CircleOffScreen(x, y, radius)) return;
 
@@ -222,7 +229,7 @@ void Graphics::DrawCircle(const int& x, const int& y, const int& radius, const f
     //DrawLine(x, y, x + cos(angle) * radius, y + sin(angle) * radius, color, lockToScreen);
 }
 
-void Graphics::DrawFillCircle(const int& x, const int& y, const int& radius, const uint32_t& color)
+void GraphicsManager::DrawFillCircle(const int& x, const int& y, const int& radius, const uint32_t& color)
 {
     if (CircleOffScreen(x, y, radius)) return;
     int pRadius = radius;
@@ -247,7 +254,7 @@ void Graphics::DrawFillCircle(const int& x, const int& y, const int& radius, con
     }
 }
 
-void Graphics::DrawPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen)
 {
     Vec2 current = vertices[0];
     Vec2 previous = vertices[vertices.size() - 1];
@@ -262,19 +269,19 @@ void Graphics::DrawPolygon(const int& x, const int& y, const std::vector<Vec2>& 
     }
 }
 
-void Graphics::DrawFillPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawFillPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen)
 {
     
 }
 
-void Graphics::DrawTexture(const int& x, const int& y, const int& width, const int& height, const float& rotation, SDL_Texture* texture)
+void GraphicsManager::DrawTexture(const int& x, const int& y, const int& width, const int& height, const float& rotation, SDL_Texture* texture)
 {
     SDL_Rect dstRect = {x - (width / 2), y - (height / 2), width, height};
     float rotationDeg = rotation * 57.2958;
     SDL_RenderCopyEx(renderer, texture, nullptr, &dstRect, rotationDeg, nullptr, SDL_FLIP_NONE);
 }
 
-void Graphics::DrawChar(const int& x, const int& y, const char& character, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawChar(const int& x, const int& y, const char& character, const uint32_t& color, const bool& lockToScreen)
 {
     for (int j = 0; j < Font::fontHeight; j++)
     {
@@ -282,18 +289,22 @@ void Graphics::DrawChar(const int& x, const int& y, const char& character, const
         {
             if (character == ' ') continue;
 
-            if (Font::fontMap[std::tolower(character)][k + j * Font::fontWidth])
+            if (Font::fontMap[character][k + j * Font::fontWidth])
             {
+                int yOffset = 0;
+
+                if (character == 'g' || character == 'j' || character == 'p' || character == 'q' || character == 'y') yOffset = 2;
+
                 if(lockToScreen)
-                    DrawPixel(x + k, y + j, color);
+                    DrawPixel(x + k, y + j + yOffset, color);
                 else
-                    DrawPixel(x + k + screenOffset.x, y + j + screenOffset.y, color);
+                    DrawPixel(x + k + screenOffset.x, y + j + yOffset + screenOffset.y, color);
             }
         }
     }
 }
 
-void Graphics::DrawString(
+void GraphicsManager::DrawString(
     const int& x,
     const int& y,
     const char* string,
@@ -352,7 +363,7 @@ void Graphics::DrawString(
     }
 }
 
-void Graphics::DisplayBresenhamCircle(const int& xc, const int& yc, const int& x0, const int& y0, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DisplayBresenhamCircle(const int& xc, const int& yc, const int& x0, const int& y0, const uint32_t& color, const bool& lockToScreen)
 {
     if (lockToScreen)
     {

@@ -5,83 +5,83 @@
 #include <SDL.h>
 #include <iostream>
 
-bool InputManager::mUpPressed = false;
-bool InputManager::mUpHeld = false;
-bool InputManager::mUpReleased = false;
-float InputManager::mUpHeldTime = 0.0f;
+bool InputManager::mKeyPressedW = false;
+bool InputManager::mKeyHeldW = false;
+bool InputManager::mKeyReleasedW = false;
+float InputManager::mKeyHeldTimeW = 0.0f;
 
-bool InputManager::mDownPressed = false;
-bool InputManager::mDownHeld = false;
-bool InputManager::mDownReleased = false;
-float InputManager::mDownHeldTime = 0.0f;
+bool InputManager::mKeyPressedS = false;
+bool InputManager::mKeyHeldS = false;
+bool InputManager::mKeyReleasedS = false;
+float InputManager::mKeyHeldTimeS = 0.0f;
 
-bool InputManager::mLeftPressed = false;
-bool InputManager::mLeftHeld = false;
-bool InputManager::mLeftReleased = false;
-float InputManager::mLeftHeldTime = 0.0f;
+bool InputManager::mKeyPressedA = false;
+bool InputManager::mKeyHeldA = false;
+bool InputManager::mKeyReleasedA = false;
+float InputManager::mKeyHeldTimeA = 0.0f;
 
-bool InputManager::mRightPressed = false;
-bool InputManager::mRightHeld = false;
-bool InputManager::mRightReleased = false;
-float InputManager::mRightHeldTime = 0.0f;
+bool InputManager::mKeyPressedD = false;
+bool InputManager::mKeyHeldD = false;
+bool InputManager::mKeyReleasedD = false;
+float InputManager::mKeyHeldTimeD = 0.0f;
 
-bool InputManager::mEPressed = false;
-bool InputManager::mOPressed = false;
-bool InputManager::mSpacebarPressed = false;
+bool InputManager::mKeyPressedE = false;
+bool InputManager::mKeyPressedO = false;
+bool InputManager::mKeyPressedSpace = false;
 
 void InputManager::Update(const float dt)
 {
-    if (mUpPressed || mUpHeld)
+    if (mKeyPressedW || mKeyHeldW)
     {
-        mUpPressed = false;
-        mUpHeld = true;
-        mUpHeldTime += dt;
+        mKeyPressedW = false;
+        mKeyHeldW = true;
+        mKeyHeldTimeW += dt;
     }
-    else if (mUpReleased)
+    else if (mKeyReleasedW)
     {
-        mUpReleased = false;
-        mUpHeldTime = 0.0f;
-    }
-
-    if (mDownPressed || mDownHeld)
-    {
-        mDownPressed = false;
-        mDownHeld = true;
-        mDownHeldTime += dt;
-    }
-    else if (mDownReleased)
-    {
-        mDownReleased = false;
-        mDownHeldTime = 0.0f;
+        mKeyReleasedW = false;
+        mKeyHeldTimeW = 0.0f;
     }
 
-    if (mLeftPressed || mLeftHeld)
+    if (mKeyPressedS || mKeyHeldS)
     {
-        mLeftPressed = false;
-        mLeftHeld = true;
-        mLeftHeldTime += dt;
+        mKeyPressedS = false;
+        mKeyHeldS = true;
+        mKeyHeldTimeS += dt;
     }
-    else if (mLeftReleased)
+    else if (mKeyReleasedS)
     {
-        mLeftReleased = false;
-        mLeftHeldTime = 0.0f;
-    }
-
-    if (mRightPressed || mRightHeld)
-    {
-        mRightPressed = false;
-        mRightHeld = true;
-        mRightHeldTime += dt;
-    }
-    else if (mRightReleased)
-    {
-        mRightReleased = false;
-        mRightHeldTime = 0.0f;
+        mKeyReleasedS = false;
+        mKeyHeldTimeS = 0.0f;
     }
 
-    if (mEPressed) mEPressed = false;
-    if (mOPressed) mOPressed = false;
-    if (mSpacebarPressed) mSpacebarPressed = false;
+    if (mKeyPressedA || mKeyHeldA)
+    {
+        mKeyPressedA = false;
+        mKeyHeldA = true;
+        mKeyHeldTimeA += dt;
+    }
+    else if (mKeyReleasedA)
+    {
+        mKeyReleasedA = false;
+        mKeyHeldTimeA = 0.0f;
+    }
+
+    if (mKeyPressedD || mKeyHeldD)
+    {
+        mKeyPressedD = false;
+        mKeyHeldD = true;
+        mKeyHeldTimeD += dt;
+    }
+    else if (mKeyReleasedD)
+    {
+        mKeyReleasedD = false;
+        mKeyHeldTimeD = 0.0f;
+    }
+
+    if (mKeyPressedE) mKeyPressedE = false;
+    if (mKeyPressedO) mKeyPressedO = false;
+    if (mKeyPressedSpace) mKeyPressedSpace = false;
 
     SDL_Event sdlEvent;
     while (SDL_PollEvent(&sdlEvent))
@@ -92,113 +92,103 @@ void InputManager::Update(const float dt)
         {
             switch (sdlEvent.key.keysym.sym)
             {
-                case SDLK_w:
+            case SDLK_a:
+            {
+                if (!mKeyPressedA && !mKeyHeldA)
                 {
-                    if (!mUpPressed && !mUpHeld)
-                    {
-                        mUpPressed = true;
-                        mUpHeldTime = 0.0f;
-                    }
-                    break;
+                    mKeyPressedA = true;
+                    mKeyHeldTimeA = 0.0f;
                 }
-                case SDLK_SPACE:
-                {
-                    mSpacebarPressed = true;
-                    break;
-                }
+                break;
             }
-
-            if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
+            case SDLK_d:
+            {
+                if (!mKeyPressedD && !mKeyHeldD)
+                {
+                    mKeyPressedD = true;
+                    mKeyHeldTimeD = 0.0f;
+                }
+                break;
+            }
+            case SDLK_e:
+            {
+                if (!mKeyPressedE)
+                {
+                    mKeyPressedE = true;
+                }
+                break;
+            }
+            case SDLK_o:
+            {
+                if (!mKeyPressedO)
+                {
+                    mKeyPressedO = true;
+                }
+                break;
+            }
+            case SDLK_s:
+            {
+                if (!mKeyPressedS && !mKeyHeldS)
+                {
+                    mKeyPressedS = true;
+                    mKeyHeldTimeS = 0.0f;
+                }
+                break;
+            }
+            case SDLK_w:
+            {
+                if (!mKeyPressedW && !mKeyHeldW)
+                {
+                    mKeyPressedW = true;
+                    mKeyHeldTimeW = 0.0f;
+                }
+                break;
+            }
+            case SDLK_SPACE:
+            {
+                mKeyPressedSpace = true;
+                break;
+            }
+            case SDLK_ESCAPE:
             {
                 Engine::Instance().SetIsRunning(false);
-            }
-
-            if (sdlEvent.key.keysym.sym == SDLK_w)
-            {
-                if (!mUpPressed && !mUpHeld)
-                {
-                    mUpPressed = true;
-                    mUpHeldTime = 0.0f;
-                }
                 break;
             }
-            else if (sdlEvent.key.keysym.sym == SDLK_s)
-            {
-                if (!mDownPressed && !mDownHeld)
-                {
-                    mDownPressed = true;
-                    mDownHeldTime = 0.0f;
-                }
-                break;
             }
-            else if (sdlEvent.key.keysym.sym == SDLK_a)
-            {
-                if (!mLeftPressed && !mLeftHeld)
-                {
-                    mLeftPressed = true;
-                    mLeftHeldTime = 0.0f;
-                }
-                break;
-            }
-            else if (sdlEvent.key.keysym.sym == SDLK_d)
-            {
-                if (!mRightPressed && !mRightHeld)
-                {
-                    mRightPressed = true;
-                    mRightHeldTime = 0.0f;
-                }
-                break;
-            }
-
-            if (sdlEvent.key.keysym.sym == SDLK_e)
-            {
-                mEPressed = true;
-                break;
-            }
-
-            if (sdlEvent.key.keysym.sym == SDLK_o)
-            {
-                mOPressed = true;
-                break;
-            }
-
-            /*if(sdlEvent.key.keysym.sym == SDLK_SPACE)
-            {
-                mSpacebarPressed = true;
-                break;
-            }*/
-
             break;
         }
         case SDL_KEYUP:
         {
-            if (sdlEvent.key.keysym.sym == SDLK_w)
+            switch (sdlEvent.key.keysym.sym)
             {
-                mUpReleased = true;
-                mUpPressed = false;
-                mUpHeld = false;
+            case SDLK_a:
+            {
+                mKeyReleasedW = true;
+                mKeyPressedW = false;
+                mKeyHeldW = false;
                 break;
             }
-            else if (sdlEvent.key.keysym.sym == SDLK_s)
+            case SDLK_d:
             {
-                mDownReleased = true;
-                mDownPressed = false;
-                mDownHeld = false;
+                mKeyReleasedD = true;
+                mKeyPressedD = false;
+                mKeyHeldD = false;
                 break;
             }
-            else if (sdlEvent.key.keysym.sym == SDLK_a)
+            case SDLK_s:
             {
-                mLeftReleased = true;
-                mLeftPressed = false;
-                mLeftHeld = false;
+                mKeyReleasedS = true;
+                mKeyPressedS = false;
+                mKeyHeldS = false;
                 break;
             }
-            else if (sdlEvent.key.keysym.sym == SDLK_d)
+            case SDLK_w:
             {
-                mRightReleased = true;
-                mRightPressed = false;
-                mRightHeld = false;
+                mKeyReleasedW = true;
+                mKeyPressedW = false;
+                mKeyHeldW = false;
                 break;
+            }
             }
             break;
         }

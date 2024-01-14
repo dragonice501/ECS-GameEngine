@@ -25,8 +25,8 @@ private:
 		Vec2 position = Vec2(0.0f, 0.0f);
 	};
 
-	static const int AUTOMATA_COUNT_HORIZONTAL = 30;
-	static const int AUTOMATA_COUNT_VERTICAL = 30;
+	static const int AUTOMATA_COUNT_HORIZONTAL = 40;
+	static const int AUTOMATA_COUNT_VERTICAL = 40;
 	const float TICK_TIME = 0.1f;
 
 	float mRunTime = 0.0f;

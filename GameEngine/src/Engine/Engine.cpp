@@ -53,7 +53,7 @@ void Engine::Run()
 
 		timePreviousFrame = SDL_GetTicks();
 
-		GraphicsManager::ClearScreen(0xFF444444);
+		GraphicsManager::ClearScreen(0xFF000011);
 
 		InputManager::Update(deltaTime);
 

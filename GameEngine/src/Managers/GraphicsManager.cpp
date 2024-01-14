@@ -31,8 +31,8 @@ bool GraphicsManager::OpenWindow()
     SDL_GetCurrentDisplayMode(0, &display_mode);
     windowWidth = display_mode.w;
     windowHeight = display_mode.h;
-    windowWidth = 1280;
-    windowHeight = 720;
+    //windowWidth = 1280;
+    //windowHeight = 720;
 
     screenWidth = windowWidth * SCREEN_SCALE;
     screenHeight = windowHeight * SCREEN_SCALE;
@@ -129,14 +129,14 @@ void GraphicsManager::PresentRender()
     SDL_RenderPresent(renderer);
 }
 
-void GraphicsManager::DrawPixel(const int x, const int y, const uint32_t& color)
+void GraphicsManager::DrawPixel(const int x, const int y, const uint32_t color)
 {
     if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight) return;
 
     colorBuffer[x + y * screenWidth] = color;
 }
 
-void GraphicsManager::DrawLine(const int& x0, const int& y0, const int& x1, const int& y1, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawLine(const int x0, const int y0, const int x1, const int y1, const uint32_t color, const bool lockToScreen)
 {
     float x = x0;
     float y = y0;
@@ -159,7 +159,7 @@ void GraphicsManager::DrawLine(const int& x0, const int& y0, const int& x1, cons
     }
 }
 
-void GraphicsManager::DrawGrid(const uint32_t& color)
+void GraphicsManager::DrawGrid(const uint32_t color)
 {
     for (int y = 0; y < screenHeight; y++)
     {
@@ -171,7 +171,7 @@ void GraphicsManager::DrawGrid(const uint32_t& color)
     }
 }
 
-void GraphicsManager::DrawRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color)
+void GraphicsManager::DrawAARect(const int x, const int y, const int width, const int height, const uint32_t color)
 {
     DrawPixel(x + width / 2, y + height / 2, color);
 
@@ -188,7 +188,7 @@ void GraphicsManager::DrawRect(const int& x, const int& y, const int& width, con
         colorBuffer[i + (y + height) * screenWidth] = color;
 }
 
-void GraphicsManager::DrawFillRect(const int& x, const int& y, const int& width, const int& height, const uint32_t& color)
+void GraphicsManager::DrawFillAARect(const int x, const int y, const int width, const int height, const uint32_t color)
 {
     for (int i = y; i < y + height; i++)
     {
@@ -199,7 +199,7 @@ void GraphicsManager::DrawFillRect(const int& x, const int& y, const int& width,
     }
 }
 
-void GraphicsManager::DrawCircle(const int& x, const int& y, const int& radius, const float& angle, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawCircle(const int x, const int y, const int radius, const float angle, const uint32_t color, const bool lockToScreen)
 {
     if (CircleOffScreen(x, y, radius)) return;
 
@@ -229,7 +229,7 @@ void GraphicsManager::DrawCircle(const int& x, const int& y, const int& radius, 
     //DrawLine(x, y, x + cos(angle) * radius, y + sin(angle) * radius, color, lockToScreen);
 }
 
-void GraphicsManager::DrawFillCircle(const int& x, const int& y, const int& radius, const uint32_t& color)
+void GraphicsManager::DrawFillCircle(const int x, const int y, const int radius, const uint32_t color)
 {
     if (CircleOffScreen(x, y, radius)) return;
     int pRadius = radius;
@@ -254,7 +254,7 @@ void GraphicsManager::DrawFillCircle(const int& x, const int& y, const int& radi
     }
 }
 
-void GraphicsManager::DrawPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawPolygon(const int x, const int y, const std::vector<Vec2>& vertices, const uint32_t color, const bool lockToScreen)
 {
     Vec2 current = vertices[0];
     Vec2 previous = vertices[vertices.size() - 1];
@@ -269,19 +269,19 @@ void GraphicsManager::DrawPolygon(const int& x, const int& y, const std::vector<
     }
 }
 
-void GraphicsManager::DrawFillPolygon(const int& x, const int& y, const std::vector<Vec2>& vertices, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawFillPolygon(const int x, const int y, const std::vector<Vec2>& vertices, const uint32_t color, const bool lockToScreen)
 {
     
 }
 
-void GraphicsManager::DrawTexture(const int& x, const int& y, const int& width, const int& height, const float& rotation, SDL_Texture* texture)
+void GraphicsManager::DrawTexture(const int x, const int y, const int width, const int height, const float rotation, SDL_Texture* texture)
 {
     SDL_Rect dstRect = {x - (width / 2), y - (height / 2), width, height};
     float rotationDeg = rotation * 57.2958;
     SDL_RenderCopyEx(renderer, texture, nullptr, &dstRect, rotationDeg, nullptr, SDL_FLIP_NONE);
 }
 
-void GraphicsManager::DrawChar(const int& x, const int& y, const char& character, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DrawChar(const int x, const int y, const char character, const uint32_t color, const bool lockToScreen)
 {
     for (int j = 0; j < Font::fontHeight; j++)
     {
@@ -305,13 +305,13 @@ void GraphicsManager::DrawChar(const int& x, const int& y, const char& character
 }
 
 void GraphicsManager::DrawString(
-    const int& x,
-    const int& y,
+    const int x,
+    const int y,
     const char* string,
-    const TextHorizontalAlignment& horizontalAlignment,
-    const TextVerticalAlignment& verticalAlignement,
-    const uint32_t& color,
-    const bool& lockToScreen)
+    const TextHorizontalAlignment horizontalAlignment,
+    const TextVerticalAlignment verticalAlignement,
+    const uint32_t color,
+    const bool lockToScreen)
 {
     int i = 0;
 
@@ -363,7 +363,7 @@ void GraphicsManager::DrawString(
     }
 }
 
-void GraphicsManager::DisplayBresenhamCircle(const int& xc, const int& yc, const int& x0, const int& y0, const uint32_t& color, const bool& lockToScreen)
+void GraphicsManager::DisplayBresenhamCircle(const int xc, const int yc, const int x0, const int y0, const uint32_t color, const bool lockToScreen)
 {
     if (lockToScreen)
     {

@@ -5,55 +5,55 @@ class InputManager
 public:
 	static void Update(const float dt);
 
-	static inline const bool UpPressed() { return mUpPressed; }
-	static inline const bool UpHeld() { return mUpHeld; }
-	static inline const bool UpReleased() { return mUpReleased; }
-	static inline const float UpHeldTime() { return mUpHeldTime; }
+	static inline const bool KeyPressedW() { return mKeyPressedW; }
+	static inline const bool KeyHeldW() { return mKeyHeldW; }
+	static inline const bool KeyReleasedW() { return mKeyReleasedW; }
+	static inline const float KeyHeldTimeW() { return mKeyHeldTimeW; }
 
-	static inline const bool DownPressed() { return mDownPressed; }
-	static inline const bool DownHeld() { return mDownHeld; }
-	static inline const bool DownReleased() { return mDownReleased; }
-	static inline const float DownHeldTime() { return mDownHeldTime; }
+	static inline const bool KeyPressedS() { return mKeyPressedS; }
+	static inline const bool KeyHeldS() { return mKeyHeldS; }
+	static inline const bool KeyReleasedS() { return mKeyReleasedS; }
+	static inline const float KeyHeldTimeS() { return mKeyHeldTimeS; }
 
-	static inline const bool LeftPressed() { return mLeftPressed; }
-	static inline const bool LeftHeld() { return mLeftHeld; }
-	static inline const bool LeftReleased() { return mLeftReleased; }
-	static inline const float LeftHeldTime() { return mLeftHeldTime; }
+	static inline const bool KeyPressedA() { return mKeyPressedA; }
+	static inline const bool KeyHeldA() { return mKeyHeldA; }
+	static inline const bool KeyReleasedA() { return mKeyReleasedA; }
+	static inline const float KeyHeldTimeA() { return mKeyHeldTimeA; }
 
-	static inline const bool RightPressed() { return mRightPressed; }
-	static inline const bool RightHeld() { return mRightHeld; }
-	static inline const bool RightReleased() { return mRightReleased; }
-	static inline const float RightHeldTime() { return mRightHeldTime; }
+	static inline const bool KeyPressedD() { return mKeyPressedD; }
+	static inline const bool KeyHeldD() { return mKeyHeldD; }
+	static inline const bool KeyReleasedD() { return mKeyReleasedD; }
+	static inline const float KeyHeldTimeD() { return mKeyHeldTimeD; }
 
-	static inline const bool EPressed() { return mEPressed; }
-	static inline const bool OPressed() { return mOPressed; }
-	static inline const bool SpacebarPresssed() { return mSpacebarPressed;  }
+	static inline const bool KeyPressedE() { return mKeyPressedE; }
+	static inline const bool KeyPressedO() { return mKeyPressedO; }
+	static inline const bool KeyPressedSpace() { return mKeyPressedSpace;  }
 
 private:
 	InputManager() {}
 	~InputManager() {}
 
-	static bool mUpPressed;
-	static bool mUpHeld;
-	static bool mUpReleased;
-	static float mUpHeldTime;
+	static bool mKeyPressedW;
+	static bool mKeyHeldW;
+	static bool mKeyReleasedW;
+	static float mKeyHeldTimeW;
 
-	static bool mDownPressed;
-	static bool mDownHeld;
-	static bool mDownReleased;
-	static float mDownHeldTime;
+	static bool mKeyPressedS;
+	static bool mKeyHeldS;
+	static bool mKeyReleasedS;
+	static float mKeyHeldTimeS;
 
-	static bool mLeftPressed;
-	static bool mLeftHeld;
-	static bool mLeftReleased;
-	static float mLeftHeldTime;
+	static bool mKeyPressedA;
+	static bool mKeyHeldA;
+	static bool mKeyReleasedA;
+	static float mKeyHeldTimeA;
 
-	static bool mRightPressed;
-	static bool mRightHeld;
-	static bool mRightReleased;
-	static float mRightHeldTime;
+	static bool mKeyPressedD;
+	static bool mKeyHeldD;
+	static bool mKeyReleasedD;
+	static float mKeyHeldTimeD;
 
-	static bool mEPressed;
-	static bool mOPressed;
-	static bool mSpacebarPressed;
+	static bool mKeyPressedE;
+	static bool mKeyPressedO;
+	static bool mKeyPressedSpace;
 };

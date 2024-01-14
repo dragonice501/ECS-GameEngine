@@ -18,5 +18,8 @@ public:
 	void Update(float dt) override;
 	void Render(static SDL_Renderer* renderer, SDL_Rect& camera) override;
 
-	Particle mParticle;
+	Vec2 p0;
+	Vec2 p1;
+	Vec2 p2;
+	Vec2 p3;
 };

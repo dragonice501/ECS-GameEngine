@@ -26,7 +26,7 @@ void SceneCellularAutomata::Shutdown()
 
 void SceneCellularAutomata::Input()
 {
-	if (InputManager::SpacebarPresssed())
+	if (InputManager::KeyPressedSpace())
 	{
 		mPaused = !mPaused;
 	}
@@ -53,7 +53,7 @@ void SceneCellularAutomata::Render(SDL_Renderer* renderer, SDL_Rect& camera)
 		{
 			const Automata& automata = mAutomata[x][y];
 
-			GraphicsManager::DrawFillRect(automata.position.x, automata.position.y, 10, 10, automata.isAlive ? 0xFFFFFFFF : 0xFF000000);
+			GraphicsManager::DrawFillAARect(automata.position.x, automata.position.y, 10, 10, automata.isAlive ? 0xFFFFFFFF : 0xFF000000);
 		}
 	}
 }

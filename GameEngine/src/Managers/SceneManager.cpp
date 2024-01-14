@@ -10,7 +10,7 @@ void SceneManager::LoadScene()
 		mCurrentScene.reset();
 	}
 
-	mCurrentScene = std::make_unique<SceneCellularAutomata>();
+	mCurrentScene = std::make_unique<SceneMainMenu>();
 
 	if (mCurrentScene) mCurrentScene->Setup(GraphicsManager::Renderer());
 }

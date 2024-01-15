@@ -1,9 +1,13 @@
 #pragma once
 
+#include "../Utils/Vec2.h"
+
 class InputManager
 {
 public:
 	static void Update(const float dt);
+
+	static inline const Vec2& MousePosition() { return mMousePosition; }
 
 	static inline const bool KeyPressedW() { return mKeyPressedW; }
 	static inline const bool KeyHeldW() { return mKeyHeldW; }
@@ -32,6 +36,8 @@ public:
 private:
 	InputManager() {}
 	~InputManager() {}
+
+	static Vec2 mMousePosition;
 
 	static bool mKeyPressedW;
 	static bool mKeyHeldW;

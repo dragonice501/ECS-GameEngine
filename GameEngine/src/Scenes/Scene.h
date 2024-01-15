@@ -3,6 +3,8 @@
 #include "../Managers/InputManager.h"
 #include "../Managers/GraphicsManager.h"
 
+#include "../Utils/Constants.h"
+
 #include <SDL.h>
 
 class Scene

@@ -21,4 +21,6 @@ public:
 
 	AARectangle rectAA;
 	Rectangle rect;
+
+	bool mIsPaused = false;
 };

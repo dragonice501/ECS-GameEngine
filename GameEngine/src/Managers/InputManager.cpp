@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include <iostream>
 
+Vec2 InputManager::mMousePosition = Vec2();
+
 bool InputManager::mKeyPressedW = false;
 bool InputManager::mKeyHeldW = false;
 bool InputManager::mKeyReleasedW = false;
@@ -190,6 +192,12 @@ void InputManager::Update(const float dt)
                 break;
             }
             }
+            break;
+        }
+        case SDL_MOUSEMOTION:
+        {
+            mMousePosition.x = sdlEvent.motion.x;
+            mMousePosition.y = sdlEvent.motion.y;
             break;
         }
         }

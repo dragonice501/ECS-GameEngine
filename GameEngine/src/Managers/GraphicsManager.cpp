@@ -31,8 +31,8 @@ bool GraphicsManager::OpenWindow()
     SDL_GetCurrentDisplayMode(0, &display_mode);
     windowWidth = display_mode.w;
     windowHeight = display_mode.h;
-    //windowWidth = 1280;
-    //windowHeight = 720;
+    windowWidth = 1280;
+    windowHeight = 720;
 
     screenWidth = windowWidth * SCREEN_SCALE;
     screenHeight = windowHeight * SCREEN_SCALE;

@@ -19,14 +19,6 @@ public:
 	void Update(float dt) override;
 	void Render(static SDL_Renderer* renderer, SDL_Rect& camera) override;
 
-	Vec2 screenCenter;
-
-	Vec2 r0;
-	Vec2 r1;
-	Vec2 r2;
-	Vec2 r3;
-	Vec2 rayPosition;
-
 	AARectangle rectAA;
 	Rectangle rect;
 };

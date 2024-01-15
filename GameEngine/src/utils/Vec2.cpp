@@ -118,13 +118,18 @@ void Vec2::Rotate(const float degree)
 	y *= l;
 }
 
-Vec2 Vec2::RotateAroundPoint(const float degree, const Vec2& point)
+void Vec2::RotateAroundPoint(const Vec2& point, const float degree)
 {
-	Vec2 result;
-	result.x = x * cos(degree) - y * sin(degree) + point.x;
-	result.y = x * sin(degree) + y * cos(degree) + point.y;
+	float rad = -(degree * 3.141592f) / 180.0f;
 
-	return result;
+	float tempX = x - point.x;
+	float tempY = y - point.y;
+
+	float rotatedX = tempX * cos(rad) - tempY * sin(rad);
+	float rotatedY = tempX * sin(rad) + tempY * cos(rad);
+
+	x = rotatedX + point.x;
+	y = rotatedY + point.y;
 }
 
 float Vec2::Magnitude() const {

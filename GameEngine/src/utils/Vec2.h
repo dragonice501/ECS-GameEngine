@@ -31,7 +31,7 @@ struct Vec2
     void Sub(const Vec2& v);                 // v1.Sub(v2)
     void Scale(const float n);               // v1.Scale(n)
     void Rotate(const float degree);    // v1.Rotate(angle)
-    Vec2 RotateAroundPoint(const float degree, const Vec2& point);
+    void RotateAroundPoint(const Vec2& point, const float degree);
 
     float Magnitude() const;                 // v1.Magnitude()
     float MagnitudeSquared() const;          // v1.MagnitudeSquared()

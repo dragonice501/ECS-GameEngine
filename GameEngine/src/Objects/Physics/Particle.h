@@ -4,8 +4,6 @@
 
 #include "../Utils/Vec2.h"
 
-#include <string>
-
 class Particle
 {
 public:

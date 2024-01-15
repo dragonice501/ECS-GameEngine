@@ -10,6 +10,11 @@ Vec2::Vec2(float x, float y): x(x), y(y) {
 
 }
 
+Vec2 Vec2::Zero()
+{
+	return Vec2(0.0f,0.0f);
+}
+
 Vec2& Vec2::operator = (const Vec2& v) {
 	x = v.x;
 	y = v.y;
@@ -98,10 +103,26 @@ void Vec2::Scale(const float n) {
 	y *= n;
 }
 
-Vec2 Vec2::Rotate(const float angle) const {
+void Vec2::Rotate(const float degree)
+{
+	float l = Magnitude();
+
+	float rad = -(degree * 3.141592f) / 180.0f;
+
+	x = x * cos(rad) - y * sin(rad);
+	y = x * sin(rad) + y * cos(rad);
+
+	Normalize();
+
+	x *= l;
+	y *= l;
+}
+
+Vec2 Vec2::RotateAroundPoint(const float degree, const Vec2& point)
+{
 	Vec2 result;
-	result.x = x * cos(angle) - y * sin(angle);
-	result.y = x * sin(angle) + y * cos(angle);
+	result.x = x * cos(degree) - y * sin(degree) + point.x;
+	result.y = x * sin(degree) + y * cos(degree) + point.y;
 
 	return result;
 }

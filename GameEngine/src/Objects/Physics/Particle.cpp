@@ -11,5 +11,4 @@ void Particle::Update(const float dt)
 void Particle::Render()
 {
 	GraphicsManager::DrawPixel(mPosition.x, mPosition.y, 0xFFFF0000);
-	GraphicsManager::DrawString(10, 10, std::to_string(mVelocity.Magnitude()).c_str());
 }

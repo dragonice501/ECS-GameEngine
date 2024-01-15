@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 #include "../utils/Vec2.h"
+#include "../Objects/Shapes/AARectangle.h"
+#include "../Objects/Shapes/Rectangle.h"
 
 #include <stdint.h>
 #include <vector>
@@ -67,7 +69,9 @@ public:
     static void DrawLine(const int x0, const int y0, const int x1, const int y1, const uint32_t color, const bool lockToScreen = true);
     static void DrawGrid(const uint32_t color);
     static void DrawAARect(const int x, const int y, const int width, const int height, const uint32_t color);
+    static void DrawAARect(const AARectangle& rect, const uint32_t color);
     static void DrawFillAARect(const int x, const int y, const int width, const int height, const uint32_t color);
+    static void DrawRect(const Rectangle& rect, const uint32_t color);
     static void DrawCircle(const int x, const int y, const int radius, const float angle, const uint32_t color, const bool lockToScreen = true);
     static void DrawFillCircle(const int x, const int y, const int radius, const uint32_t color);
     static void DrawPolygon(const int x, const int y, const std::vector<Vec2>& vertices, const uint32_t color, const bool lockToScreen = true);

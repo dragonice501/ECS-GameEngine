@@ -188,6 +188,26 @@ void GraphicsManager::DrawAARect(const int x, const int y, const int width, cons
         colorBuffer[i + (y + height) * screenWidth] = color;
 }
 
+void GraphicsManager::DrawAARect(const AARectangle& rect, const uint32_t color)
+{
+    int x = rect.topLeft.x;
+    int y = rect.topLeft.y;
+    int width = rect.bottomRight.x - rect.topLeft.x;
+    int height = rect.bottomRight.y - rect.topLeft.y;
+
+    for (int i = x; i < x + width; i++)
+        colorBuffer[i + y * screenWidth] = color;
+
+    for (int i = y; i < y + height; i++)
+        colorBuffer[x + i * screenWidth] = color;
+
+    for (int i = y; i < y + height + 1; i++)
+        colorBuffer[(x + width) + i * screenWidth] = color;
+
+    for (int i = x; i < x + width + 1; i++)
+        colorBuffer[i + (y + height) * screenWidth] = color;
+}
+
 void GraphicsManager::DrawFillAARect(const int x, const int y, const int width, const int height, const uint32_t color)
 {
     for (int i = y; i < y + height; i++)
@@ -197,6 +217,34 @@ void GraphicsManager::DrawFillAARect(const int x, const int y, const int width, 
             DrawPixel(j, i, color);
         }
     }
+}
+
+void GraphicsManager::DrawRect(const Rectangle& rect, const uint32_t color)
+{
+    Vec2 p0 = rect.position + Vec2(-rect.width * 0.5f, -rect.height * 0.5f);
+    Vec2 p1 = rect.position + Vec2(rect.width * 0.5f, -rect.height * 0.5f);
+    Vec2 p2 = rect.position + Vec2(rect.width * 0.5f, rect.height * 0.5f);
+    Vec2 p3 = rect.position + Vec2(-rect.width * 0.5f, rect.height * 0.5f);
+
+    Vec2 v0 = p0 - rect.position;
+    Vec2 v1 = p1 - rect.position;
+    Vec2 v2 = p2 - rect.position;
+    Vec2 v3 = p3 - rect.position;
+
+    v0.Rotate(rect.rotation);
+    v1.Rotate(rect.rotation);
+    v2.Rotate(rect.rotation);
+    v3.Rotate(rect.rotation);
+
+    DrawPixel(rect.position.x, rect.position.y, color);
+    DrawPixel(rect.position.x + v0.x, rect.position.y + v0.y, 0xFFFF0000);
+    //DrawPixel(rect.position.x + v1.x, rect.position.y + v1.y, 0xFFFFFF00);
+    //DrawPixel(rect.position.x + v2.x, rect.position.y + v2.y, 0xFFFF0000);
+    //DrawPixel(rect.position.x + v3.x, rect.position.y + v3.y, 0xFFFFFF00);
+    //GraphicsManager::DrawLine(p0.x, p0.y, p1.x, p1.y, color);
+    //GraphicsManager::DrawLine(p1.x, p1.y, p2.x, p2.y, color);
+    //GraphicsManager::DrawLine(p2.x, p2.y, p3.x, p3.y, color);
+    //GraphicsManager::DrawLine(p3.x, p3.y, p0.x, p0.y, color);
 }
 
 void GraphicsManager::DrawCircle(const int x, const int y, const int radius, const float angle, const uint32_t color, const bool lockToScreen)

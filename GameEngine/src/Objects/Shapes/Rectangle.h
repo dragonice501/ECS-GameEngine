@@ -9,24 +9,26 @@ struct Rectangle
 	Rectangle() : Rectangle(Vec2(), 0, 0, 0.0f) {}
 	Rectangle(const Vec2& center, int width, int height, float rotation)
 	{
-		this->position = center;
-		this->width = width;
-		this->height = height;
+		this->center = center;
+		p0 = center + Vec2(-width * 0.5f, -height * 0.5f);
+		p1 = center + Vec2(width * 0.5f, -height * 0.5f);
+		p2 = center + Vec2(width * 0.5f, height * 0.5f);
+		p3 = center + Vec2(-width * 0.5f, height * 0.5f);
 		this->rotation = rotation;
+	}
+
+	inline const float GetRotation() const { return rotation; }
+
+	void Rotate(float degrees)
+	{
+		p0.RotateAroundPoint(center, degrees);
+		p1.RotateAroundPoint(center, degrees);
+		p2.RotateAroundPoint(center, degrees);
+		p3.RotateAroundPoint(center, degrees);
 	}
 
 	bool ContainsPoint(const Vec2& point)
 	{
-		Vec2 p0 = position + Vec2(-width * 0.5f, -height * 0.5f);
-		Vec2 p1 = position + Vec2(width * 0.5f, -height * 0.5f);
-		Vec2 p2 = position + Vec2(width * 0.5f, height * 0.5f);
-		Vec2 p3 = position + Vec2(-width * 0.5f, height * 0.5f);
-
-		p0.RotateAroundPoint(position, rotation);
-		p1.RotateAroundPoint(position, rotation);
-		p2.RotateAroundPoint(position, rotation);
-		p3.RotateAroundPoint(position, rotation);
-
 		Vec2 vA = p1 - p0;
 		Vec2 vB = point - p0;
 		if (vA.Cross(vB) < 0) return false;
@@ -46,8 +48,12 @@ struct Rectangle
 		return true;
 	}
 
-	Vec2 position;
-	float width;
-	float height;
+	Vec2 center;
+	Vec2 p0;
+	Vec2 p1;
+	Vec2 p2;
+	Vec2 p3;
+
+private:
 	float rotation;
 };

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Utils/Constants.h"
 #include "../Utils/Vec2.h"
 
 class InputManager
@@ -7,7 +8,7 @@ class InputManager
 public:
 	static void Update(const float dt);
 
-	static inline const Vec2& MousePosition() { return mMousePosition; }
+	static inline const Vec2& MousePosition() { return mMousePosition * SCREEN_SCALE; }
 
 	static inline const bool KeyPressedW() { return mKeyPressedW; }
 	static inline const bool KeyHeldW() { return mKeyHeldW; }

@@ -221,21 +221,23 @@ void GraphicsManager::DrawFillAARect(const int x, const int y, const int width, 
 
 void GraphicsManager::DrawRect(const Rectangle& rect, const uint32_t color)
 {
-    Vec2 p0 = rect.position + Vec2(-rect.width * 0.5f, -rect.height * 0.5f);
-    Vec2 p1 = rect.position + Vec2(rect.width * 0.5f, -rect.height * 0.5f);
-    Vec2 p2 = rect.position + Vec2(rect.width * 0.5f, rect.height * 0.5f);
-    Vec2 p3 = rect.position + Vec2(-rect.width * 0.5f, rect.height * 0.5f);
+    DrawPixel(rect.center.x, rect.center.y, color);
+    DrawLine(rect.p0.x, rect.p0.y, rect.p1.x, rect.p1.y, color);
+    DrawLine(rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, color);
+    DrawLine(rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, color);
+    DrawLine(rect.p3.x, rect.p3.y, rect.p0.x, rect.p0.y, color);
+}
 
-    p0.RotateAroundPoint(rect.position, rect.rotation);
-    p1.RotateAroundPoint(rect.position, rect.rotation);
-    p2.RotateAroundPoint(rect.position, rect.rotation);
-    p3.RotateAroundPoint(rect.position, rect.rotation);
+void GraphicsManager::DrawFillRect(const Rectangle& rect, const uint32_t color)
+{
+    DrawFillTriangle(rect.p0.x, rect.p0.y, rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, 0xFFFFFF00);
+    DrawFillTriangle(rect.p0.x, rect.p0.y, rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, 0xFFFFFF00);
 
-    DrawPixel(rect.position.x, rect.position.y, color);
-    DrawLine(p0.x, p0.y, p1.x, p1.y, color);
-    DrawLine(p1.x, p1.y, p2.x, p2.y, color);
-    DrawLine(p2.x, p2.y, p3.x, p3.y, color);
-    DrawLine(p3.x, p3.y, p0.x, p0.y, color);
+    DrawPixel(rect.center.x, rect.center.y, color);
+    DrawLine(rect.p0.x, rect.p0.y, rect.p1.x, rect.p1.y, color);
+    DrawLine(rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, color);
+    DrawLine(rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, color);
+    DrawLine(rect.p3.x, rect.p3.y, rect.p0.x, rect.p0.y, color);
 }
 
 void GraphicsManager::DrawCircle(const int x, const int y, const int radius, const float angle, const uint32_t color, const bool lockToScreen)
@@ -291,6 +293,91 @@ void GraphicsManager::DrawFillCircle(const int x, const int y, const int radius,
             }
         }
     }
+}
+
+void GraphicsManager::DrawFillTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color)
+{
+    if (y0 > y1)
+    {
+        SwapInt(y0, y1);
+        SwapInt(x0, x1);
+    }
+    if (y1 > y2)
+    {
+        SwapInt(y1, y2);
+        SwapInt(x1, x2);
+    }
+    if (y0 > y1)
+    {
+        SwapInt(y0, y1);
+        SwapInt(x0, x1);
+    }
+
+    float slope1 = 0.0f;
+    float slope2 = 0.0f;
+
+    if (y1 - y0 != 0) slope1 = static_cast<float>(x1 - x0) / abs(y1 - y0);
+    if (y2 - y0 != 0) slope2 = static_cast<float>(x2 - x0) / abs(y2 - y0);
+
+    if (y1 - y0 != 0)
+    {
+        for (int y = y0; y <= y1; y++)
+        {
+            int xStart = x1 + (y - y1) * slope1;
+            int xEnd = x0 + (y - y0) * slope2;
+
+            if (xEnd < xStart)
+            {
+                SwapInt(xEnd, xStart);
+            }
+
+            for (int x = xStart; x < xEnd; x++)
+            {
+                DrawPixel(x, y, color);
+            }
+        }
+    }
+
+    slope1 = 0.0f;
+
+    if (y2 - y1 != 0) slope1 = static_cast<float>(x2 - x1) / abs(y2 - y1);
+
+    if (y2 - y1 != 0)
+    {
+        for (int y = y1; y <= y2; y++)
+        {
+            int xStart = x1 + (y - y1) * slope1;
+            int xEnd = x0 + (y - y0) * slope2;
+
+            if (xEnd < xStart)
+            {
+                SwapInt(xEnd, xStart);
+            }
+
+            for (int x = xStart; x < xEnd; x++)
+            {
+                DrawPixel(x, y, color);
+            }
+        }
+    }
+
+    /*if (y1 == y2)
+    {
+        FillFlatBottomTriangle(x0, y0, x1, y1, x2, y2, color);
+    }
+    else if (y0 == y1)
+    {
+        FillFlatTopTriangle(x0, y0, x1, y1, x2, y2, color);
+    }
+    else
+    {
+        int My = y1;
+        int Mx = (((x2 - x0) * (y1 - y0)) / (y2 - y0)) + x0;
+
+        FillFlatBottomTriangle(x0, y0, x1, y1, Mx, My, color);
+
+        FillFlatTopTriangle(x1, y1, Mx, My, x2, y2, color);
+    }*/
 }
 
 void GraphicsManager::DrawPolygon(const int x, const int y, const std::vector<Vec2>& vertices, const uint32_t color, const bool lockToScreen)
@@ -399,6 +486,67 @@ void GraphicsManager::DrawString(
         DrawChar(xPos, yPos, string[i], color, lockToScreen);
         i++;
         xPos += Font::fontWidth + Font::fontSpacing;
+    }
+}
+
+void GraphicsManager::SwapFloat(float& a, float& b)
+{
+    float temp = a;
+    a = b;
+    b = temp;
+}
+
+void GraphicsManager::SwapVec2(Vec2& a, Vec2& b)
+{
+    Vec2 temp = a;
+    a = b;
+    b = temp;
+}
+
+void GraphicsManager::SwapInt(int& a, int& b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+void GraphicsManager::FillFlatBottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color)
+{
+    float slope1 = static_cast<float>(x1 - x0) / (y1 - y0);
+    float slope2 = static_cast<float>(x2 - x0) / (y2 - y0);
+
+    float xStart = x0;
+    float xEnd = x0;
+
+    for (int y = y0; y <= y2; y++)
+    {
+        for (int x = xStart; x <= xEnd; x++)
+        {
+            DrawPixel(x, y, color);
+        }
+
+        xStart += slope1;
+        xEnd += slope2;
+    }
+}
+
+void GraphicsManager::FillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color)
+{
+    float slope1 = static_cast<float>(x2 - x0) / (y2 - y0);
+    float slope2 = static_cast<float>(x2 - x1) / (y2 - y1);
+
+    float xStart = x2;
+    float xEnd = x2;
+
+    for (int y = y2; y >= y0; y--)
+    {
+        for (int x = xStart; x <= xEnd; x++)
+        {
+            DrawPixel(x, y, color);
+        }
+
+        xStart -= slope1;
+        xEnd -= slope2;
     }
 }
 

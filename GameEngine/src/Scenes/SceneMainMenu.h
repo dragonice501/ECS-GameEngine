@@ -19,8 +19,7 @@ public:
 	void Update(float dt) override;
 	void Render(static SDL_Renderer* renderer, SDL_Rect& camera) override;
 
-	AARectangle rectAA;
 	Rectangle rect;
 
-	bool mIsPaused = false;
+	bool mIsPaused = true;
 };

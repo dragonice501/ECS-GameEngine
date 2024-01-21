@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Managers/GraphicsManager.h"
+#include "../../Managers/GraphicsManager.h"
 
-#include "../Utils/Vec2.h"
+#include "../../Utils/Vec2.h"
 
 class Particle
 {

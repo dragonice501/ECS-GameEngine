@@ -1,6 +1,6 @@
 #include "GraphicsManager.h"
 #include "../Utils/Constants.h"
-#include "Font.h"
+#include "../Graphics/Font.h"
 
 #include <iostream>
 
@@ -171,6 +171,26 @@ void GraphicsManager::DrawGrid(const uint32_t color)
     }
 }
 
+void GraphicsManager::DrawCruve(const Curve& curve, const uint32_t color)
+{
+    Vec2 start = curve.start;
+    Vec2 end;
+
+    //DrawPixel(start.x, start.y, color);
+
+    for (int i = 1; i < 11; i++)
+    {
+        end = start + curve.normal * curve.length * 0.1f;
+        end.RotateAroundPoint(start, curve.degree * 0.1f * i);
+
+        //DrawPixel(end.x, end.y, color);
+        
+        DrawLine(start.x, start.y, end.x, end.y, color);
+
+        start = end;
+    }
+}
+
 void GraphicsManager::DrawAARect(const int x, const int y, const int width, const int height, const uint32_t color)
 {
     DrawPixel(x + width / 2, y + height / 2, color);
@@ -226,18 +246,17 @@ void GraphicsManager::DrawRect(const Rectangle& rect, const uint32_t color)
     DrawLine(rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, color);
     DrawLine(rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, color);
     DrawLine(rect.p3.x, rect.p3.y, rect.p0.x, rect.p0.y, color);
+
+    DrawPixel(rect.p0.x, rect.p0.y, 0xFFFF0000);
+    DrawPixel(rect.p1.x, rect.p1.y, 0xFF00FF00);
+    DrawPixel(rect.p2.x, rect.p2.y, 0xFF0000FF);
+    DrawPixel(rect.p3.x, rect.p3.y, 0xFFFF00FF);
 }
 
 void GraphicsManager::DrawFillRect(const Rectangle& rect, const uint32_t color)
 {
     DrawFillTriangle(rect.p0.x, rect.p0.y, rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, 0xFFFFFF00);
     DrawFillTriangle(rect.p0.x, rect.p0.y, rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, 0xFFFFFF00);
-
-    DrawPixel(rect.center.x, rect.center.y, color);
-    DrawLine(rect.p0.x, rect.p0.y, rect.p1.x, rect.p1.y, color);
-    DrawLine(rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, color);
-    DrawLine(rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, color);
-    DrawLine(rect.p3.x, rect.p3.y, rect.p0.x, rect.p0.y, color);
 }
 
 void GraphicsManager::DrawCircle(const int x, const int y, const int radius, const float angle, const uint32_t color, const bool lockToScreen)
@@ -360,24 +379,6 @@ void GraphicsManager::DrawFillTriangle(int x0, int y0, int x1, int y1, int x2, i
             }
         }
     }
-
-    /*if (y1 == y2)
-    {
-        FillFlatBottomTriangle(x0, y0, x1, y1, x2, y2, color);
-    }
-    else if (y0 == y1)
-    {
-        FillFlatTopTriangle(x0, y0, x1, y1, x2, y2, color);
-    }
-    else
-    {
-        int My = y1;
-        int Mx = (((x2 - x0) * (y1 - y0)) / (y2 - y0)) + x0;
-
-        FillFlatBottomTriangle(x0, y0, x1, y1, Mx, My, color);
-
-        FillFlatTopTriangle(x1, y1, Mx, My, x2, y2, color);
-    }*/
 }
 
 void GraphicsManager::DrawPolygon(const int x, const int y, const std::vector<Vec2>& vertices, const uint32_t color, const bool lockToScreen)
@@ -489,6 +490,10 @@ void GraphicsManager::DrawString(
     }
 }
 
+void GraphicsManager::DrawSpriteRect(SDL_Texture* texture, SDL_Rect& srcRect, SDL_Rect& dstRect)
+{
+}
+
 void GraphicsManager::SwapFloat(float& a, float& b)
 {
     float temp = a;
@@ -508,46 +513,6 @@ void GraphicsManager::SwapInt(int& a, int& b)
     int temp = a;
     a = b;
     b = temp;
-}
-
-void GraphicsManager::FillFlatBottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color)
-{
-    float slope1 = static_cast<float>(x1 - x0) / (y1 - y0);
-    float slope2 = static_cast<float>(x2 - x0) / (y2 - y0);
-
-    float xStart = x0;
-    float xEnd = x0;
-
-    for (int y = y0; y <= y2; y++)
-    {
-        for (int x = xStart; x <= xEnd; x++)
-        {
-            DrawPixel(x, y, color);
-        }
-
-        xStart += slope1;
-        xEnd += slope2;
-    }
-}
-
-void GraphicsManager::FillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color)
-{
-    float slope1 = static_cast<float>(x2 - x0) / (y2 - y0);
-    float slope2 = static_cast<float>(x2 - x1) / (y2 - y1);
-
-    float xStart = x2;
-    float xEnd = x2;
-
-    for (int y = y2; y >= y0; y--)
-    {
-        for (int x = xStart; x <= xEnd; x++)
-        {
-            DrawPixel(x, y, color);
-        }
-
-        xStart -= slope1;
-        xEnd -= slope2;
-    }
 }
 
 void GraphicsManager::DisplayBresenhamCircle(const int xc, const int yc, const int x0, const int y0, const uint32_t color, const bool lockToScreen)

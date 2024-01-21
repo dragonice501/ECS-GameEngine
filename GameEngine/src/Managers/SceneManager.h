@@ -3,6 +3,7 @@
 #include "../Scenes/Scene.h"
 #include "../Scenes/SceneMainMenu.h"
 #include "../Scenes/SceneCellularAutomata.h"
+#include "../Scenes/X-Wing/SceneXWing.h"
 
 #include "../Managers/GameManager.h"
 #include "../Managers/GraphicsManager.h"

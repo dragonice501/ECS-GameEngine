@@ -1,10 +1,11 @@
 #pragma once
 
-#include <SDL.h>
-#include "../utils/Vec2.h"
+#include "../Utils/Vec2.h"
+#include "../Objects/Curves/Curve.h"
 #include "../Objects/Shapes/AARectangle.h"
 #include "../Objects/Shapes/Rectangle.h"
 
+#include <SDL.h>
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -47,6 +48,8 @@ public:
     static bool OpenWindow();
     static void CloseWindow();
 
+    static SDL_Renderer* GetRenderer() { return renderer; }
+
     static int WindowWidth();
     static int WindowHeight();
     static int ScreenWidth();
@@ -68,6 +71,8 @@ public:
     static void DrawPixel(const int x, const int y, const uint32_t color);
     static void DrawLine(const int x0, const int y0, const int x1, const int y1, const uint32_t color, const bool lockToScreen = true);
     static void DrawGrid(const uint32_t color);
+
+    static void DrawCruve(const Curve& curve, const uint32_t color);
 
     static void DrawAARect(const int x, const int y, const int width, const int height, const uint32_t color);
     static void DrawAARect(const AARectangle& rect, const uint32_t color);
@@ -94,13 +99,12 @@ public:
         const uint32_t color = 0xFFFF0000,
         const bool lockToScreen = true);
 
+    static void DrawSpriteRect(SDL_Texture* texture, SDL_Rect& srcRect, SDL_Rect& dstRect);
 
 private:
     static void SwapInt(int& a, int& b);
     static void SwapFloat(float& a, float& b);
     static void SwapVec2(Vec2& a, Vec2& b);
-    static void FillFlatBottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
-    static void FillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
 
     static void DisplayBresenhamCircle(const int xc, const int yc, const int x0, const int y0, const uint32_t color, const bool lockToScreen = true);
 };

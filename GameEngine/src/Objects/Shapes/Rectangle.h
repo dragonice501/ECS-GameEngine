@@ -27,23 +27,23 @@ struct Rectangle
 		p3.RotateAroundPoint(center, degrees);
 	}
 
-	bool ContainsPoint(const Vec2& point)
+	bool ContainsPoint(const Vec2& point) const
 	{
-		Vec2 vA = p1 - p0;
-		Vec2 vB = point - p0;
-		if (vA.Cross(vB) < 0) return false;
+		Vec2 edge = p1 - p0;
+		Vec2 pointV = point - p0;
+		if (Vec2::Cross(edge, pointV) < 0.0f) return false;
 
-		vA = p2 - p1;
-		vB = point - p1;
-		if (vA.Cross(vB) < 0) return false;
+		edge = p2 - p1;
+		pointV = point - p1;
+		if (Vec2::Cross(edge, pointV) < 0.0f) return false;
 
-		vA = p3 - p2;
-		vB = point - p2;
-		if (vA.Cross(vB) < 0) return false;
+		edge = p3 - p2;
+		pointV = point - p2;
+		if (Vec2::Cross(edge, pointV) < 0.0f) return false;
 
-		vA = p0 - p3;
-		vB = point - p3;
-		if (vA.Cross(vB) < 0) return false;
+		edge = p0 - p3;
+		pointV = point - p3;
+		if (Vec2::Cross(edge, pointV) < 0.0f) return false;
 
 		return true;
 	}

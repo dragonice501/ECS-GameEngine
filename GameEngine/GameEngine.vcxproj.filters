@@ -39,9 +39,6 @@
     <ClCompile Include="src\Engine\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Managers\AssetManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Managers\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +46,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scenes\SceneCellularAutomata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\X-Wing\SceneXWing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UIButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UIPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UISprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Managers\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -314,9 +326,6 @@
     <ClInclude Include="src\Engine\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Managers\AssetManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Managers\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -332,8 +341,48 @@
     <ClInclude Include="src\Objects\Shapes\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Objects\Curves\Curve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\X-Wing\Ship.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\X-Wing\SceneXWing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\X-Wing\ShipManuever.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UIButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UIPanel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UISprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\UIText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Managers\AssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\SDL2\include\SDL_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Scenes\Scene_Template.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libraries\SDL2\lib\x86\SDL2.dll" />
+    <None Include="libraries\SDL2\lib\x86\SDL2_image.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="libraries\SDL2\lib\x86\SDL2.lib" />
+    <Library Include="libraries\SDL2\lib\x86\SDL2_image.lib" />
+    <Library Include="libraries\SDL2\lib\x86\SDL2main.lib" />
+    <Library Include="libraries\SDL2\lib\x86\SDL2test.lib" />
   </ItemGroup>
 </Project>

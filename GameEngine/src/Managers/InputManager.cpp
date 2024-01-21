@@ -5,7 +5,8 @@
 #include <SDL.h>
 #include <iostream>
 
-Vec2 InputManager::mMousePosition = Vec2();
+bool InputManager::mMouseLeftClick = false;
+Vec2 InputManager::mMousePosition = Vec2::Zero();
 
 bool InputManager::mKeyPressedW = false;
 bool InputManager::mKeyHeldW = false;
@@ -33,6 +34,11 @@ bool InputManager::mKeyPressedSpace = false;
 
 void InputManager::Update(const float dt)
 {
+    if (mMouseLeftClick)
+    {
+        mMouseLeftClick = false;
+    }
+
     if (mKeyPressedW || mKeyHeldW)
     {
         mKeyPressedW = false;
@@ -90,6 +96,24 @@ void InputManager::Update(const float dt)
     {
         switch (sdlEvent.type)
         {
+        case SDL_MOUSEMOTION:
+        {
+            mMousePosition.x = sdlEvent.motion.x;
+            mMousePosition.y = sdlEvent.motion.y;
+            break;
+        }
+        case SDL_MOUSEBUTTONDOWN:
+        {
+            switch (sdlEvent.button.button)
+            {
+            case SDL_BUTTON_LEFT:
+            {
+                mMouseLeftClick = true;
+                break;
+            }
+            }
+            break;
+        }
         case SDL_KEYDOWN:
         {
             switch (sdlEvent.key.keysym.sym)
@@ -192,12 +216,6 @@ void InputManager::Update(const float dt)
                 break;
             }
             }
-            break;
-        }
-        case SDL_MOUSEMOTION:
-        {
-            mMousePosition.x = sdlEvent.motion.x;
-            mMousePosition.y = sdlEvent.motion.y;
             break;
         }
         }

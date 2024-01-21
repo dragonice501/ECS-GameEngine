@@ -8,7 +8,8 @@ class InputManager
 public:
 	static void Update(const float dt);
 
-	static inline const Vec2& MousePosition() { return mMousePosition * SCREEN_SCALE; }
+	static inline const bool MouseLeftClick() { return mMouseLeftClick; }
+	static inline const Vec2& GetMousePosition() { return mMousePosition * SCREEN_SCALE; }
 
 	static inline const bool KeyPressedW() { return mKeyPressedW; }
 	static inline const bool KeyHeldW() { return mKeyHeldW; }
@@ -38,6 +39,7 @@ private:
 	InputManager() {}
 	~InputManager() {}
 
+	static bool mMouseLeftClick;
 	static Vec2 mMousePosition;
 
 	static bool mKeyPressedW;

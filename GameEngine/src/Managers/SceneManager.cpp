@@ -10,7 +10,7 @@ void SceneManager::LoadScene()
 		mCurrentScene.reset();
 	}
 
-	mCurrentScene = std::make_unique<SceneMainMenu>();
+	mCurrentScene = std::make_unique<SceneXWing>();
 
 	if (mCurrentScene) mCurrentScene->Setup(GraphicsManager::Renderer());
 }

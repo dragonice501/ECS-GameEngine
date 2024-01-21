@@ -71,8 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Graphics;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Input;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Managers;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Scenes;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Utils;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Graphics;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Input;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Managers;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Scenes;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\src\Utils;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,6 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,6 +113,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,7 +126,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -130,13 +144,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Managers\AssetManager.cpp" />
+    <ClCompile Include="src\Scenes\X-Wing\SceneXWing.cpp" />
     <ClCompile Include="src\Scenes\SceneCellularAutomata.cpp" />
     <ClCompile Include="src\Objects\Physics\Particle.cpp" />
     <ClCompile Include="src\Managers\GameManager.cpp" />
-    <ClCompile Include="src\Managers\AssetManager.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Managers\SceneManager.cpp" />
     <ClCompile Include="src\Scenes\SceneMainMenu.cpp" />
@@ -144,15 +160,23 @@
     <ClCompile Include="src\Managers\GraphicsManager.cpp" />
     <ClCompile Include="src\Managers\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\UI\UIButton.cpp" />
+    <ClCompile Include="src\UI\UIPanel.cpp" />
+    <ClCompile Include="src\UI\UISprite.cpp" />
     <ClCompile Include="src\Utils\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libraries\SDL2\include\SDL_image.h" />
+    <ClInclude Include="src\Managers\AssetManager.h" />
+    <ClInclude Include="src\Objects\X-Wing\ShipManuever.h" />
+    <ClInclude Include="src\Scenes\X-Wing\SceneXWing.h" />
+    <ClInclude Include="src\Objects\Curves\Curve.h" />
     <ClInclude Include="src\Objects\Shapes\AARectangle.h" />
     <ClInclude Include="src\Objects\Shapes\Rectangle.h" />
+    <ClInclude Include="src\Objects\X-Wing\Ship.h" />
     <ClInclude Include="src\Scenes\SceneCellularAutomata.h" />
     <ClInclude Include="src\Objects\Physics\Particle.h" />
     <ClInclude Include="src\Managers\GameManager.h" />
-    <ClInclude Include="src\Managers\AssetManager.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="libraries\SDL2\include\begin_code.h" />
     <ClInclude Include="libraries\SDL2\include\close_code.h" />
@@ -238,11 +262,25 @@
     <ClInclude Include="src\Managers\GraphicsManager.h" />
     <ClInclude Include="src\Managers\InputManager.h" />
     <ClInclude Include="src\Scenes\Scene.h" />
+    <ClInclude Include="src\UI\UIButton.h" />
+    <ClInclude Include="src\UI\UIPanel.h" />
+    <ClInclude Include="src\UI\UISprite.h" />
+    <ClInclude Include="src\UI\UIText.h" />
     <ClInclude Include="src\Utils\Constants.h" />
     <ClInclude Include="src\Utils\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Scenes\Scene_Template.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libraries\SDL2\lib\x86\SDL2.dll" />
+    <None Include="libraries\SDL2\lib\x86\SDL2_image.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="libraries\SDL2\lib\x86\SDL2.lib" />
+    <Library Include="libraries\SDL2\lib\x86\SDL2main.lib" />
+    <Library Include="libraries\SDL2\lib\x86\SDL2test.lib" />
+    <Library Include="libraries\SDL2\lib\x86\SDL2_image.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

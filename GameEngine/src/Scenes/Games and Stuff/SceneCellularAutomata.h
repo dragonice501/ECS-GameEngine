@@ -1,18 +1,18 @@
 #pragma once
 
-#include "Scene.h"
+#include "../Scene.h"
 
-#include "../Utils/Vec2.h"
+#include "../../Utils/Vec2.h"
 
 class SceneCellularAutomata : public Scene
 {
 public:
-	void Setup(static SDL_Renderer* renderer) override;
+	void Setup() override;
 	void Shutdown() override;
 
 	void Input() override;
 	void Update(float dt) override;
-	void Render(static SDL_Renderer* renderer, SDL_Rect& camera) override;
+	void Render() override;
 
 	void Cycle();
 	bool CheckNeighborIsAlive(int x, int y);

@@ -159,13 +159,13 @@ void GraphicsManager::DrawLine(const int x0, const int y0, const int x1, const i
     }
 }
 
-void GraphicsManager::DrawGrid(const uint32_t color)
+void GraphicsManager::DrawGrid(const int gridWidth, const int gridHeight, const uint32_t color)
 {
     for (int y = 0; y < screenHeight; y++)
     {
         for (int x = 0; x < screenWidth; x++)
         {
-            if (x % PIXELS_PER_METER == 0 || y % PIXELS_PER_METER == 0)
+            if (x % gridWidth == 0 || y % gridHeight == 0)
                 DrawPixel(x, y, color);
         }
     }
@@ -239,6 +239,17 @@ void GraphicsManager::DrawFillAARect(const int x, const int y, const int width, 
     }
 }
 
+void GraphicsManager::DrawFillAARect(const AARectangle& rect, const uint32_t color)
+{
+    for (int i = rect.topLeft.y; i < rect.bottomRight.y; i++)
+    {
+        for (int j =  rect.topLeft.x; j < rect.bottomRight.x; j++)
+        {
+            DrawPixel(j, i, color);
+        }
+    }
+}
+
 void GraphicsManager::DrawRect(const Rectangle& rect, const uint32_t color)
 {
     DrawPixel(rect.center.x, rect.center.y, color);
@@ -246,11 +257,6 @@ void GraphicsManager::DrawRect(const Rectangle& rect, const uint32_t color)
     DrawLine(rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y, color);
     DrawLine(rect.p2.x, rect.p2.y, rect.p3.x, rect.p3.y, color);
     DrawLine(rect.p3.x, rect.p3.y, rect.p0.x, rect.p0.y, color);
-
-    DrawPixel(rect.p0.x, rect.p0.y, 0xFFFF0000);
-    DrawPixel(rect.p1.x, rect.p1.y, 0xFF00FF00);
-    DrawPixel(rect.p2.x, rect.p2.y, 0xFF0000FF);
-    DrawPixel(rect.p3.x, rect.p3.y, 0xFFFF00FF);
 }
 
 void GraphicsManager::DrawFillRect(const Rectangle& rect, const uint32_t color)
@@ -446,17 +452,17 @@ void GraphicsManager::DrawString(
     int yPos;
     switch (horizontalAlignment)
     {
-        case Left:
+        case HA_LEFT:
         {
             xPos = x;
             break;
         }
-        case Center:
+        case HA_CENTER:
         {
             xPos = x - (Font::GetStringFontLength(string) / 2);
             break;
         }
-        case Right:
+        case HA_RIGHT:
         {
             xPos = x - Font::GetStringFontLength(string);
             break;
@@ -465,17 +471,17 @@ void GraphicsManager::DrawString(
 
     switch (verticalAlignement)
     {
-        case Top:
+        case VA_TOP:
         {
             yPos = y;
             break;
         }
-        case Middle:
+        case VA_CENTER:
         {
             yPos = y - Font::fontHeight / 2;
             break;
         }
-        case Bottom:
+        case VA_BOTTOM:
         {
             yPos = y - Font::fontHeight;
             break;

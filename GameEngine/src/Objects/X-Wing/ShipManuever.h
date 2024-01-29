@@ -10,15 +10,24 @@ enum EManueverDirection
 	MD_STOP
 };
 
+enum EManueverStress
+{
+	MS_NONE,
+	MS_DESTRESS,
+	MS_STRESS
+};
+
 struct ShipManuever
 {
-	ShipManuever() : ShipManuever(EManueverDirection::MD_STRAIGHT, 1) {}
-	ShipManuever(const EManueverDirection manueverDirection, const int manueverLength)
+	ShipManuever() : ShipManuever(EManueverDirection::MD_STRAIGHT, EManueverStress::MS_NONE, 1) {}
+	ShipManuever(const EManueverDirection manueverDirection, const EManueverStress manueverStress, const int manueverLength)
 	{
 		this->manueverDirection = manueverDirection;
+		this->manueverStress = manueverStress;
 		this->manueverLength = manueverLength;
 	}
 
 	EManueverDirection manueverDirection;
+	EManueverStress manueverStress;
 	int manueverLength;
 };

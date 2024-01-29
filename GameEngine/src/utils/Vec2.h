@@ -5,7 +5,7 @@ struct Vec2
     float x;
     float y;
 
-    Vec2();
+    Vec2() : Vec2(0.0f, 0.0f) {}
     Vec2(float x, float y);
     
     static inline const Vec2 Zero() { return Vec2(0.0f, 0.0f); }

@@ -14,12 +14,12 @@ public:
 	SceneXWing();
 	virtual ~SceneXWing();
 
-	void Setup(static SDL_Renderer* renderer);
+	void Setup();
 	void Shutdown() override;
 
 	void Input() override;
 	void Update(float dt) override;
-	void Render(static SDL_Renderer* renderer, SDL_Rect& camera) override;
+	void Render() override;
 
 	Ship* mSelectedShip = nullptr;
 

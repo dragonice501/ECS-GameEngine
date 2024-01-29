@@ -8,31 +8,10 @@ public:
 	NewScene();
 	~NewScene();
 
+	void Setup() override;
+	void Shutdown() override;
+
 	void Input() override;
 	void Update(float dt) override;
 	void Render() override;
 };
-
-#include "NewScene.h"
-
-NewScene::NewScene()
-{
-	mIsRunning = true;
-}
-
-NewScene::~NewScene()
-{
-}
-
-void NewScene::Input()
-{
-}
-
-void NewScene::Update(float dt)
-{
-}
-
-void NewScene::Render()
-{
-
-}

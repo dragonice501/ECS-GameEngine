@@ -10,9 +10,9 @@ void SceneManager::LoadScene()
 		mCurrentScene.reset();
 	}
 
-	mCurrentScene = std::make_unique<SceneXWing>();
+	mCurrentScene = std::make_unique<ScenePatternCommand>();
 
-	if (mCurrentScene) mCurrentScene->Setup(GraphicsManager::Renderer());
+	if (mCurrentScene) mCurrentScene->Setup();
 }
 
 void SceneManager::CurrentSceneInput()
@@ -27,7 +27,7 @@ void SceneManager::CurrentSceneUpdate(const float dt)
 
 void SceneManager::CurrentSceneRender()
 {
-	mCurrentScene->Render(GraphicsManager::Renderer(), GraphicsManager::Camera());
+	mCurrentScene->Render();
 }
 
 void SceneManager::CurrentSceneShutdown()

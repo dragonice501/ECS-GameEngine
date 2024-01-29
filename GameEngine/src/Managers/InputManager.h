@@ -1,10 +1,44 @@
 #pragma once
 
+#include "../Commands/Command.h"
 #include "../Utils/Constants.h"
 #include "../Utils/Vec2.h"
 
 class InputManager
 {
+private:
+	static bool mMouseLeftClick;
+	static Vec2 mMousePosition;
+
+	static bool mKeyPressedW;
+	static bool mKeyHeldW;
+	static bool mKeyReleasedW;
+	static float mKeyHeldTimeW;
+
+	static bool mKeyPressedS;
+	static bool mKeyHeldS;
+	static bool mKeyReleasedS;
+	static float mKeyHeldTimeS;
+
+	static bool mKeyPressedA;
+	static bool mKeyHeldA;
+	static bool mKeyReleasedA;
+	static float mKeyHeldTimeA;
+
+	static bool mKeyPressedD;
+	static bool mKeyHeldD;
+	static bool mKeyReleasedD;
+	static float mKeyHeldTimeD;
+
+	static bool mKeyPressedE;
+	static bool mKeyPressedO;
+	static bool mKeyPressedSpace;
+
+	static Command* mCommandA;
+	static Command* mCommandD;
+	static Command* mCommandS;
+	static Command* mCommandW;
+
 public:
 	static void Update(const float dt);
 
@@ -35,34 +69,15 @@ public:
 	static inline const bool KeyPressedO() { return mKeyPressedO; }
 	static inline const bool KeyPressedSpace() { return mKeyPressedSpace;  }
 
+	static inline void SetCommandA(Command& command) { mCommandA = &command; }
+	static inline void SetCommandD(Command& command) { mCommandD = &command; }
+	static inline void SetCommandS(Command& command) { mCommandS = &command; }
+	static inline void SetCommandW(Command& command) { mCommandW = &command; }
+	
+	static void ClearCommands();
+	static Command* GetCommand();
+
 private:
 	InputManager() {}
 	~InputManager() {}
-
-	static bool mMouseLeftClick;
-	static Vec2 mMousePosition;
-
-	static bool mKeyPressedW;
-	static bool mKeyHeldW;
-	static bool mKeyReleasedW;
-	static float mKeyHeldTimeW;
-
-	static bool mKeyPressedS;
-	static bool mKeyHeldS;
-	static bool mKeyReleasedS;
-	static float mKeyHeldTimeS;
-
-	static bool mKeyPressedA;
-	static bool mKeyHeldA;
-	static bool mKeyReleasedA;
-	static float mKeyHeldTimeA;
-
-	static bool mKeyPressedD;
-	static bool mKeyHeldD;
-	static bool mKeyReleasedD;
-	static float mKeyHeldTimeD;
-
-	static bool mKeyPressedE;
-	static bool mKeyPressedO;
-	static bool mKeyPressedSpace;
 };

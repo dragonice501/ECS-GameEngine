@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../Scenes/Scene.h"
-#include "../Scenes/SceneMainMenu.h"
-#include "../Scenes/SceneCellularAutomata.h"
+#include "../Scenes/Design Patterns/ScenePatternCommand.h"
+#include "../Scenes/Games and Stuff/SceneMainMenu.h"
+#include "../Scenes/Games and Stuff/SceneCellularAutomata.h"
 #include "../Scenes/X-Wing/SceneXWing.h"
 
 #include "../Managers/GameManager.h"
@@ -12,6 +13,9 @@
 
 class SceneManager
 {
+private:
+	static std::unique_ptr<Scene> mCurrentScene;
+
 public:
 	static void LoadScene();
 
@@ -24,6 +28,4 @@ public:
 private:
 	SceneManager() {};
 	~SceneManager() {};
-
-	static std::unique_ptr<Scene> mCurrentScene;
 };

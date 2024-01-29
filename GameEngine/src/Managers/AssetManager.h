@@ -11,6 +11,18 @@
 
 class AssetManager
 {
+private:
+	static SDL_Texture* mTileMapTexture;
+	static SDL_Texture* mMenuIconsTexture;
+	static SDL_Texture* mBattleBackgroundTexture;
+	static SDL_Texture* mEnemiesTexture;
+	static std::vector<SDL_Texture*> mCharacterTextures;
+
+	static std::string mMenuIconsFilePath;
+	static std::string mBattleBackgroundImageFilePath;
+
+	static std::map<std::string, SDL_Texture*> mAssetMap;
+
 public:
 	static SDL_Texture* GetTileMapTexture() { return mTileMapTexture; }
 	static SDL_Texture* GetMenuIconsTexture() { return mMenuIconsTexture; }
@@ -51,14 +63,6 @@ public:
 	}
 
 private:
-	static SDL_Texture* mTileMapTexture;
-	static SDL_Texture* mMenuIconsTexture;
-	static SDL_Texture* mBattleBackgroundTexture;
-	static SDL_Texture* mEnemiesTexture;
-	static std::vector<SDL_Texture*> mCharacterTextures;
-
-	static std::string mMenuIconsFilePath;
-	static std::string mBattleBackgroundImageFilePath;
-
-	static std::map<std::string, SDL_Texture*> mAssetMap;
+	AssetManager() {}
+	~AssetManager() {}
 };

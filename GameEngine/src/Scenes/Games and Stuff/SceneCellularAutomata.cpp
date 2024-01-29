@@ -1,6 +1,6 @@
 #include "SceneCellularAutomata.h"
 
-void SceneCellularAutomata::Setup(SDL_Renderer* renderer)
+void SceneCellularAutomata::Setup()
 {
 	Vec2 screenCenterPosition = Vec2(GraphicsManager::ScreenWidth() / 2, GraphicsManager::ScreenHeight() / 2);
 
@@ -45,7 +45,7 @@ void SceneCellularAutomata::Update(float dt)
 	}
 }
 
-void SceneCellularAutomata::Render(SDL_Renderer* renderer, SDL_Rect& camera)
+void SceneCellularAutomata::Render()
 {
 	for (size_t x = 0; x < AUTOMATA_COUNT_HORIZONTAL; x++)
 	{

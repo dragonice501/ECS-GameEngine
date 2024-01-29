@@ -32,6 +32,11 @@ bool InputManager::mKeyPressedE = false;
 bool InputManager::mKeyPressedO = false;
 bool InputManager::mKeyPressedSpace = false;
 
+Command* InputManager::mCommandA = nullptr;
+Command* InputManager::mCommandD = nullptr;
+Command* InputManager::mCommandS = nullptr;
+Command* InputManager::mCommandW = nullptr;
+
 void InputManager::Update(const float dt)
 {
     if (mMouseLeftClick)
@@ -189,9 +194,9 @@ void InputManager::Update(const float dt)
             {
             case SDLK_a:
             {
-                mKeyReleasedW = true;
-                mKeyPressedW = false;
-                mKeyHeldW = false;
+                mKeyReleasedA = true;
+                mKeyPressedA = false;
+                mKeyHeldA = false;
                 break;
             }
             case SDLK_d:
@@ -220,4 +225,22 @@ void InputManager::Update(const float dt)
         }
         }
     }
+}
+
+void InputManager::ClearCommands()
+{
+    mCommandA = nullptr;
+    mCommandD = nullptr;
+    mCommandS = nullptr;
+    mCommandW = nullptr;
+}
+
+Command* InputManager::GetCommand()
+{
+    if (mKeyPressedA) return mCommandA;
+    if (mKeyPressedD) return mCommandD;
+    if (mKeyPressedS) return mCommandS;
+    if (mKeyPressedW) return mCommandW;
+
+    return nullptr;
 }

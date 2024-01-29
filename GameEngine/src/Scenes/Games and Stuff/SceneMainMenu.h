@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Scene.h"
+#include "../Scene.h"
+
+#include "../../UI/UIButton.h"
 
 class SceneMainMenu : public Scene
 {
@@ -8,10 +10,12 @@ public:
 	SceneMainMenu();
 	virtual ~SceneMainMenu();
 
-	void Setup(static SDL_Renderer* renderer);
+	void Setup();
 	void Shutdown() override;
 
 	void Input() override;
 	void Update(float dt) override;
-	void Render(static SDL_Renderer* renderer, SDL_Rect& camera) override;
+	void Render() override;
+
+	UIButton mMainButton;
 };

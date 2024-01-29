@@ -30,7 +30,7 @@
     <ClCompile Include="src\Managers\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scenes\SceneMainMenu.cpp">
+    <ClCompile Include="src\Scenes\Games and Stuff\SceneMainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Managers\SceneManager.cpp">
@@ -45,7 +45,7 @@
     <ClCompile Include="src\Objects\Physics\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scenes\SceneCellularAutomata.cpp">
+    <ClCompile Include="src\Scenes\Games and Stuff\SceneCellularAutomata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scenes\X-Wing\SceneXWing.cpp">
@@ -61,6 +61,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Managers\AssetManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\Design Patterns\ScenePatternCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +86,7 @@
     <ClInclude Include="src\Managers\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scenes\SceneMainMenu.h">
+    <ClInclude Include="src\Scenes\Games and Stuff\SceneMainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Managers\SceneManager.h">
@@ -332,7 +335,7 @@
     <ClInclude Include="src\Objects\Physics\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scenes\SceneCellularAutomata.h">
+    <ClInclude Include="src\Scenes\Games and Stuff\SceneCellularAutomata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Shapes\AARectangle.h">
@@ -369,6 +372,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libraries\SDL2\include\SDL_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Commands\Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\Design Patterns\ScenePatternCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

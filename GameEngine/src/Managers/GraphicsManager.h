@@ -12,20 +12,19 @@
 
 class GraphicsManager
 {
-
 public:
     enum TextHorizontalAlignment
     {
-        Left,
-        Center,
-        Right,
+        HA_LEFT,
+        HA_CENTER,
+        HA_RIGHT,
     };
 
     enum TextVerticalAlignment
     {
-        Top,
-        Middle,
-        Bottom,
+        VA_TOP,
+        VA_CENTER,
+        VA_BOTTOM,
     };
 
 private:
@@ -70,13 +69,14 @@ public:
 
     static void DrawPixel(const int x, const int y, const uint32_t color);
     static void DrawLine(const int x0, const int y0, const int x1, const int y1, const uint32_t color, const bool lockToScreen = true);
-    static void DrawGrid(const uint32_t color);
+    static void DrawGrid(const int gridWidth, const int gridHeight, const uint32_t color);
 
     static void DrawCruve(const Curve& curve, const uint32_t color);
 
     static void DrawAARect(const int x, const int y, const int width, const int height, const uint32_t color);
     static void DrawAARect(const AARectangle& rect, const uint32_t color);
     static void DrawFillAARect(const int x, const int y, const int width, const int height, const uint32_t color);
+    static void DrawFillAARect(const AARectangle& rect, const uint32_t color);
     static void DrawRect(const Rectangle& rect, const uint32_t color);
     static void DrawFillRect(const Rectangle& rect, const uint32_t color);
 
@@ -94,14 +94,17 @@ public:
         const int x,
         const int y,
         const char* string,
-        const TextHorizontalAlignment horizontalAlignment = Left,
-        const TextVerticalAlignment verticalAlignement = Top,
+        const TextHorizontalAlignment horizontalAlignment = HA_LEFT,
+        const TextVerticalAlignment verticalAlignement = VA_TOP,
         const uint32_t color = 0xFFFF0000,
         const bool lockToScreen = true);
 
     static void DrawSpriteRect(SDL_Texture* texture, SDL_Rect& srcRect, SDL_Rect& dstRect);
 
 private:
+    GraphicsManager() {}
+    ~GraphicsManager() {}
+
     static void SwapInt(int& a, int& b);
     static void SwapFloat(float& a, float& b);
     static void SwapVec2(Vec2& a, Vec2& b);

@@ -30,6 +30,35 @@ void ScenePatternCommand::Input()
 	if (command)
 	{
 		command->Execute(mPlayer);
+
+		if (mCommands.size() != 0 && mCommandsIndex < mCommands.size() - 1)
+		{
+			mCommands.resize(mCommandsIndex);
+		}
+		
+		CommandMove* moveCommand = static_cast<CommandMove*>(command);
+		if (moveCommand)
+		{
+			CommandMove newCommand = CommandMove(moveCommand);
+			mCommands.push_back(newCommand);
+			mCommandsIndex++;
+		}
+	}
+	else if (InputManager::KeyPressedZ())
+	{
+		if (!mCommands.empty() && mCommandsIndex > 0)
+		{
+			mCommands.at(mCommandsIndex - 1).Undo(mPlayer);
+			mCommandsIndex--;
+		}
+	}
+	else if (InputManager::KeyPressedR())
+	{
+		if (!mCommands.empty() && mCommandsIndex != mCommands.size())
+		{
+			mCommands.at(mCommandsIndex).Execute(mPlayer);
+			mCommandsIndex++;
+		}
 	}
 }
 

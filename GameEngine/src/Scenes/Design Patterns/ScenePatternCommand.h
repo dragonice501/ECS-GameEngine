@@ -2,11 +2,13 @@
 
 #include "../Scene.h"
 
-#include "../../Objects/GameObject.h"
 #include "../../Commands/Command.h"
+#include "../../Objects/GameObject.h"
+#include "../../Objects/Shapes/AARectangle.h"
 #include "../../Utils/Vec2.h"
 
-#include "../../Objects/Shapes/AARectangle.h"
+#include <stack>
+#include <vector>
 
 class ScenePatternCommand : public Scene
 {
@@ -55,11 +57,27 @@ private:
 
 	class CommandMove : public Command
 	{
+	private:
+		int xMovement, yMovement;
+		int xUndoMovement, yUndoMovement;
+
 	public:
+		CommandMove() {}
 		CommandMove(const int x, const int y)
 		{
 			xMovement = x;
 			yMovement = y;
+
+			xUndoMovement = -x;
+			yUndoMovement = y;
+		}
+		CommandMove(const CommandMove* command)
+		{
+			this->xMovement = command->xMovement;
+			this->yMovement = command->yMovement;
+
+			this->xUndoMovement = -xMovement;
+			this->yUndoMovement = -yMovement;
 		}
 
 		void Execute(GameObject& object) override
@@ -67,22 +85,18 @@ private:
 			Player* player = static_cast<Player*>(&object);
 			if (player)
 			{
-				MovePlayer(player);
+				player->Move(xMovement, yMovement);
 			}
 		}
 
 		void Undo(GameObject& object) override
 		{
-
+			Player* player = static_cast<Player*>(&object);
+			if (player)
+			{
+				player->Move(xUndoMovement, yUndoMovement);
+			}
 		}
-
-		void MovePlayer(Player* player)
-		{
-			player->Move(xMovement, yMovement);
-		}
-
-		int xMovement;
-		int yMovement;
 	};
 
 	Player mPlayer;
@@ -91,4 +105,7 @@ private:
 	CommandMove mDownCommand = CommandMove(0, 50);
 	CommandMove mLeftCommand = CommandMove(-50, 0);
 	CommandMove mRightCommand = CommandMove(50, 0);
+
+	std::vector<CommandMove> mCommands;
+	size_t mCommandsIndex = 0;
 };

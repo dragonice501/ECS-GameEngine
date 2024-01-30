@@ -6,6 +6,7 @@
 #include "../Utils/Constants.h"
 
 #include <SDL.h>
+#include <iostream>
 
 class Scene
 {

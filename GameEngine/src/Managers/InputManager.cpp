@@ -8,16 +8,6 @@
 bool InputManager::mMouseLeftClick = false;
 Vec2 InputManager::mMousePosition = Vec2::Zero();
 
-bool InputManager::mKeyPressedW = false;
-bool InputManager::mKeyHeldW = false;
-bool InputManager::mKeyReleasedW = false;
-float InputManager::mKeyHeldTimeW = 0.0f;
-
-bool InputManager::mKeyPressedS = false;
-bool InputManager::mKeyHeldS = false;
-bool InputManager::mKeyReleasedS = false;
-float InputManager::mKeyHeldTimeS = 0.0f;
-
 bool InputManager::mKeyPressedA = false;
 bool InputManager::mKeyHeldA = false;
 bool InputManager::mKeyReleasedA = false;
@@ -28,8 +18,20 @@ bool InputManager::mKeyHeldD = false;
 bool InputManager::mKeyReleasedD = false;
 float InputManager::mKeyHeldTimeD = 0.0f;
 
+bool InputManager::mKeyPressedS = false;
+bool InputManager::mKeyHeldS = false;
+bool InputManager::mKeyReleasedS = false;
+float InputManager::mKeyHeldTimeS = 0.0f;
+
+bool InputManager::mKeyPressedW = false;
+bool InputManager::mKeyHeldW = false;
+bool InputManager::mKeyReleasedW = false;
+float InputManager::mKeyHeldTimeW = 0.0f;
+
 bool InputManager::mKeyPressedE = false;
 bool InputManager::mKeyPressedO = false;
+bool InputManager::mKeyPressedR = false;
+bool InputManager::mKeyPressedZ = false;
 bool InputManager::mKeyPressedSpace = false;
 
 Command* InputManager::mCommandA = nullptr;
@@ -42,30 +44,6 @@ void InputManager::Update(const float dt)
     if (mMouseLeftClick)
     {
         mMouseLeftClick = false;
-    }
-
-    if (mKeyPressedW || mKeyHeldW)
-    {
-        mKeyPressedW = false;
-        mKeyHeldW = true;
-        mKeyHeldTimeW += dt;
-    }
-    else if (mKeyReleasedW)
-    {
-        mKeyReleasedW = false;
-        mKeyHeldTimeW = 0.0f;
-    }
-
-    if (mKeyPressedS || mKeyHeldS)
-    {
-        mKeyPressedS = false;
-        mKeyHeldS = true;
-        mKeyHeldTimeS += dt;
-    }
-    else if (mKeyReleasedS)
-    {
-        mKeyReleasedS = false;
-        mKeyHeldTimeS = 0.0f;
     }
 
     if (mKeyPressedA || mKeyHeldA)
@@ -92,8 +70,35 @@ void InputManager::Update(const float dt)
         mKeyHeldTimeD = 0.0f;
     }
 
+    if (mKeyPressedS || mKeyHeldS)
+    {
+        mKeyPressedS = false;
+        mKeyHeldS = true;
+        mKeyHeldTimeS += dt;
+    }
+    else if (mKeyReleasedS)
+    {
+        mKeyReleasedS = false;
+        mKeyHeldTimeS = 0.0f;
+    }
+
+    if (mKeyPressedW || mKeyHeldW)
+    {
+        mKeyPressedW = false;
+        mKeyHeldW = true;
+        mKeyHeldTimeW += dt;
+    }
+    else if (mKeyReleasedW)
+    {
+        mKeyReleasedW = false;
+        mKeyHeldTimeW = 0.0f;
+    }
+
     if (mKeyPressedE) mKeyPressedE = false;
     if (mKeyPressedO) mKeyPressedO = false;
+    if (mKeyPressedR) mKeyPressedR = false;
+    if (mKeyPressedZ) mKeyPressedZ = false;
+
     if (mKeyPressedSpace) mKeyPressedSpace = false;
 
     SDL_Event sdlEvent;
@@ -149,14 +154,6 @@ void InputManager::Update(const float dt)
                 }
                 break;
             }
-            case SDLK_o:
-            {
-                if (!mKeyPressedO)
-                {
-                    mKeyPressedO = true;
-                }
-                break;
-            }
             case SDLK_s:
             {
                 if (!mKeyPressedS && !mKeyHeldS)
@@ -166,12 +163,36 @@ void InputManager::Update(const float dt)
                 }
                 break;
             }
+            case SDLK_o:
+            {
+                if (!mKeyPressedO)
+                {
+                    mKeyPressedO = true;
+                }
+                break;
+            }
+            case SDLK_r:
+            {
+                if (!mKeyPressedR)
+                {
+                    mKeyPressedR = true;
+                }
+                break;
+            }
             case SDLK_w:
             {
                 if (!mKeyPressedW && !mKeyHeldW)
                 {
                     mKeyPressedW = true;
                     mKeyHeldTimeW = 0.0f;
+                }
+                break;
+            }
+            case SDLK_z:
+            {
+                if (!mKeyPressedZ)
+                {
+                    mKeyPressedZ = true;
                 }
                 break;
             }

@@ -10,16 +10,6 @@ private:
 	static bool mMouseLeftClick;
 	static Vec2 mMousePosition;
 
-	static bool mKeyPressedW;
-	static bool mKeyHeldW;
-	static bool mKeyReleasedW;
-	static float mKeyHeldTimeW;
-
-	static bool mKeyPressedS;
-	static bool mKeyHeldS;
-	static bool mKeyReleasedS;
-	static float mKeyHeldTimeS;
-
 	static bool mKeyPressedA;
 	static bool mKeyHeldA;
 	static bool mKeyReleasedA;
@@ -30,8 +20,21 @@ private:
 	static bool mKeyReleasedD;
 	static float mKeyHeldTimeD;
 
+	static bool mKeyPressedS;
+	static bool mKeyHeldS;
+	static bool mKeyReleasedS;
+	static float mKeyHeldTimeS;
+
+	static bool mKeyPressedW;
+	static bool mKeyHeldW;
+	static bool mKeyReleasedW;
+	static float mKeyHeldTimeW;
+
 	static bool mKeyPressedE;
 	static bool mKeyPressedO;
+	static bool mKeyPressedR;
+	static bool mKeyPressedZ;
+
 	static bool mKeyPressedSpace;
 
 	static Command* mCommandA;
@@ -67,6 +70,8 @@ public:
 
 	static inline const bool KeyPressedE() { return mKeyPressedE; }
 	static inline const bool KeyPressedO() { return mKeyPressedO; }
+	static inline const bool KeyPressedR() { return mKeyPressedR; }
+	static inline const bool KeyPressedZ() { return mKeyPressedZ; }
 	static inline const bool KeyPressedSpace() { return mKeyPressedSpace;  }
 
 	static inline void SetCommandA(Command& command) { mCommandA = &command; }

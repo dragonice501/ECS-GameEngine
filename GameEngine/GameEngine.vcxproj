@@ -148,40 +148,47 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Managers\AssetManager.cpp" />
-    <ClCompile Include="src\Scenes\Design Patterns\ScenePatternCommand.cpp" />
-    <ClCompile Include="src\Scenes\X-Wing\SceneXWing.cpp" />
-    <ClCompile Include="src\Scenes\Games and Stuff\SceneCellularAutomata.cpp" />
-    <ClCompile Include="src\Objects\Physics\Particle.cpp" />
-    <ClCompile Include="src\Managers\GameManager.cpp" />
-    <ClCompile Include="src\Engine\Engine.cpp" />
-    <ClCompile Include="src\Managers\SceneManager.cpp" />
-    <ClCompile Include="src\Scenes\Games and Stuff\SceneMainMenu.cpp" />
-    <ClCompile Include="src\Graphics\Font.cpp" />
-    <ClCompile Include="src\Managers\GraphicsManager.cpp" />
-    <ClCompile Include="src\Managers\InputManager.cpp" />
+    <ClCompile Include="src\SceneTest.cpp" />
+    <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\ScenePatternCommand.cpp" />
+    <ClCompile Include="src\ScenePatternObserver.cpp" />
+    <ClCompile Include="src\SceneCellularAutomata.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\GameManager.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\SceneMainMenu.cpp" />
+    <ClCompile Include="src\Font.cpp" />
+    <ClCompile Include="src\GraphicsManager.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\UI\UIButton.cpp" />
-    <ClCompile Include="src\UI\UIPanel.cpp" />
-    <ClCompile Include="src\UI\UISprite.cpp" />
-    <ClCompile Include="src\Utils\Vec2.cpp" />
+    <ClCompile Include="src\UIButton.cpp" />
+    <ClCompile Include="src\UIPanel.cpp" />
+    <ClCompile Include="src\UISprite.cpp" />
+    <ClCompile Include="src\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\SceneTest.h" />
+    <ClInclude Include="src\EventManager.h" />
     <ClInclude Include="libraries\SDL2\include\SDL_image.h" />
-    <ClInclude Include="src\Commands\Command.h" />
-    <ClInclude Include="src\Managers\AssetManager.h" />
-    <ClInclude Include="src\Objects\GameObject.h" />
-    <ClInclude Include="src\Objects\X-Wing\ShipManuever.h" />
-    <ClInclude Include="src\Scenes\Design Patterns\ScenePatternCommand.h" />
-    <ClInclude Include="src\Scenes\X-Wing\SceneXWing.h" />
-    <ClInclude Include="src\Objects\Curves\Curve.h" />
-    <ClInclude Include="src\Objects\Shapes\AARectangle.h" />
-    <ClInclude Include="src\Objects\Shapes\Rectangle.h" />
-    <ClInclude Include="src\Objects\X-Wing\Ship.h" />
-    <ClInclude Include="src\Scenes\Games and Stuff\SceneCellularAutomata.h" />
-    <ClInclude Include="src\Objects\Physics\Particle.h" />
-    <ClInclude Include="src\Managers\GameManager.h" />
-    <ClInclude Include="src\Engine\Engine.h" />
+    <ClInclude Include="src\Command.h" />
+    <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\Circle.h" />
+    <ClInclude Include="src\ShipManuever.h" />
+    <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\Observer.h" />
+    <ClInclude Include="src\ScenePatternCommand.h" />
+    <ClInclude Include="src\ScenePatternObserver.h" />
+    <ClInclude Include="src\Curve.h" />
+    <ClInclude Include="src\AARectangle.h" />
+    <ClInclude Include="src\Rectangle.h" />
+    <ClInclude Include="src\Ship.h" />
+    <ClInclude Include="src\SceneCellularAutomata.h" />
+    <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\GameManager.h" />
+    <ClInclude Include="src\Engine.h" />
     <ClInclude Include="libraries\SDL2\include\begin_code.h" />
     <ClInclude Include="libraries\SDL2\include\close_code.h" />
     <ClInclude Include="libraries\SDL2\include\SDL.h" />
@@ -260,21 +267,21 @@
     <ClInclude Include="libraries\SDL2\include\SDL_version.h" />
     <ClInclude Include="libraries\SDL2\include\SDL_video.h" />
     <ClInclude Include="libraries\SDL2\include\SDL_vulkan.h" />
-    <ClInclude Include="src\Managers\SceneManager.h" />
-    <ClInclude Include="src\Scenes\Games and Stuff\SceneMainMenu.h" />
-    <ClInclude Include="src\Graphics\Font.h" />
-    <ClInclude Include="src\Managers\GraphicsManager.h" />
-    <ClInclude Include="src\Managers\InputManager.h" />
-    <ClInclude Include="src\Scenes\Scene.h" />
-    <ClInclude Include="src\UI\UIButton.h" />
-    <ClInclude Include="src\UI\UIPanel.h" />
-    <ClInclude Include="src\UI\UISprite.h" />
-    <ClInclude Include="src\UI\UIText.h" />
-    <ClInclude Include="src\Utils\Constants.h" />
-    <ClInclude Include="src\Utils\Vec2.h" />
+    <ClInclude Include="src\SceneManager.h" />
+    <ClInclude Include="src\SceneMainMenu.h" />
+    <ClInclude Include="src\Font.h" />
+    <ClInclude Include="src\GraphicsManager.h" />
+    <ClInclude Include="src\InputManager.h" />
+    <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\UIButton.h" />
+    <ClInclude Include="src\UIPanel.h" />
+    <ClInclude Include="src\UISprite.h" />
+    <ClInclude Include="src\UIText.h" />
+    <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\Scenes\Scene_Template.txt" />
+    <Text Include="src\Scene_Template.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\SDL2\lib\x86\SDL2.dll" />

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <bitset>
+
 const int FPS = 60;
 const int MILLISECONDS_PER_FRAME = 1000 / FPS;
 const int PIXELS_PER_METER = 50;
@@ -7,3 +9,6 @@ const int PIXELS_PER_METER = 50;
 const float SCREEN_SCALE = 0.5f;
 
 const float MOUSE_SENSITIVITY = 0.5f;
+
+const unsigned int MAX_COMPONENTS = 32;
+typedef std::bitset<MAX_COMPONENTS> Signature;

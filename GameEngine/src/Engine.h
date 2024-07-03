@@ -1,29 +1,44 @@
 #pragma once
 
 #include "Scene.h"
+#include "ECS.h"
+#include "EventBus.h"
 
 #include <SDL.h>
+#include <sol.hpp>
 #include <map>
 #include <string>
+#include <memory>
 
 class Engine
 {
+private:
+	static bool mIsRunning;
+	static bool mIsDebug;
+
+	int mTimePreviousFrame;
+	int mTimeToWait;
+	float mDeltaTime;
+
+	sol::state lua;
+
+	std::unique_ptr<Registry> mRegistry;
+	std::unique_ptr<EventBus> mEventBus;
+
+private:
+	Engine() = default;
+	
 public:
 	static Engine& Instance();
 
-	static void SetIsRunning(const bool running);
-
 	bool Init();
-	void Destroy();
-
 	void Run();
+	void Shutdown();
 
-	void Input();
-	void Update();
-	void Render();
+	void Setup();
 
-	static bool mIsRunning;
+	std::unique_ptr<Registry>& GetRegistry() { return mRegistry; }
+	std::unique_ptr<EventBus>& GetEventBus() { return mEventBus; }
 
-private:
-	Engine() {}
+	inline static void SetIsRunning(const bool running) { mIsRunning = running; }
 };

@@ -75,12 +75,12 @@
     <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\lua;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\lua;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\sol;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\imgui;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\lua;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\lua;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\sol;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\imgui;C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>C:\Users\narga\Desktop\Visual Studio Stuff\GameEngine\GameEngine\libraries\SDL2\lib\x86;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
@@ -92,11 +92,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,13 +108,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -148,6 +150,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libraries\imgui\imgui.cpp" />
+    <ClCompile Include="libraries\imgui\imgui_demo.cpp" />
+    <ClCompile Include="libraries\imgui\imgui_draw.cpp" />
+    <ClCompile Include="libraries\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="libraries\imgui\imgui_sdl.cpp" />
+    <ClCompile Include="libraries\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="libraries\lua\lapi.c" />
+    <ClCompile Include="libraries\lua\lauxlib.c" />
+    <ClCompile Include="libraries\lua\lbaselib.c" />
+    <ClCompile Include="libraries\lua\lbitlib.c" />
+    <ClCompile Include="libraries\lua\lcode.c" />
+    <ClCompile Include="libraries\lua\lcorolib.c" />
+    <ClCompile Include="libraries\lua\lctype.c" />
+    <ClCompile Include="libraries\lua\ldblib.c" />
+    <ClCompile Include="libraries\lua\ldebug.c" />
+    <ClCompile Include="libraries\lua\ldo.c" />
+    <ClCompile Include="libraries\lua\ldump.c" />
+    <ClCompile Include="libraries\lua\lfunc.c" />
+    <ClCompile Include="libraries\lua\lgc.c" />
+    <ClCompile Include="libraries\lua\linit.c" />
+    <ClCompile Include="libraries\lua\liolib.c" />
+    <ClCompile Include="libraries\lua\llex.c" />
+    <ClCompile Include="libraries\lua\lmathlib.c" />
+    <ClCompile Include="libraries\lua\lmem.c" />
+    <ClCompile Include="libraries\lua\loadlib.c" />
+    <ClCompile Include="libraries\lua\lobject.c" />
+    <ClCompile Include="libraries\lua\lopcodes.c" />
+    <ClCompile Include="libraries\lua\loslib.c" />
+    <ClCompile Include="libraries\lua\lparser.c" />
+    <ClCompile Include="libraries\lua\lstate.c" />
+    <ClCompile Include="libraries\lua\lstring.c" />
+    <ClCompile Include="libraries\lua\lstrlib.c" />
+    <ClCompile Include="libraries\lua\ltable.c" />
+    <ClCompile Include="libraries\lua\ltablib.c" />
+    <ClCompile Include="libraries\lua\ltm.c" />
+    <ClCompile Include="libraries\lua\lundump.c" />
+    <ClCompile Include="libraries\lua\lutf8lib.c" />
+    <ClCompile Include="libraries\lua\lvm.c" />
+    <ClCompile Include="libraries\lua\lzio.c" />
+    <ClCompile Include="src\AssetManager.cpp" />
+    <ClCompile Include="src\Component.cpp" />
+    <ClCompile Include="src\EventBus.cpp" />
+    <ClCompile Include="src\Logger.cpp" />
+    <ClCompile Include="src\ECS.cpp" />
     <ClCompile Include="src\SceneTest.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
@@ -169,6 +215,50 @@
     <ClCompile Include="src\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libraries\imgui\imconfig.h" />
+    <ClInclude Include="libraries\imgui\imgui.h" />
+    <ClInclude Include="libraries\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="libraries\imgui\imgui_internal.h" />
+    <ClInclude Include="libraries\imgui\imgui_sdl.h" />
+    <ClInclude Include="libraries\imgui\imstb_rectpack.h" />
+    <ClInclude Include="libraries\imgui\imstb_textedit.h" />
+    <ClInclude Include="libraries\imgui\imstb_truetype.h" />
+    <ClInclude Include="libraries\lua\lapi.h" />
+    <ClInclude Include="libraries\lua\lauxlib.h" />
+    <ClInclude Include="libraries\lua\lcode.h" />
+    <ClInclude Include="libraries\lua\lctype.h" />
+    <ClInclude Include="libraries\lua\ldebug.h" />
+    <ClInclude Include="libraries\lua\ldo.h" />
+    <ClInclude Include="libraries\lua\lfunc.h" />
+    <ClInclude Include="libraries\lua\lgc.h" />
+    <ClInclude Include="libraries\lua\llex.h" />
+    <ClInclude Include="libraries\lua\llimits.h" />
+    <ClInclude Include="libraries\lua\lmem.h" />
+    <ClInclude Include="libraries\lua\lobject.h" />
+    <ClInclude Include="libraries\lua\lopcodes.h" />
+    <ClInclude Include="libraries\lua\lparser.h" />
+    <ClInclude Include="libraries\lua\lprefix.h" />
+    <ClInclude Include="libraries\lua\lstate.h" />
+    <ClInclude Include="libraries\lua\lstring.h" />
+    <ClInclude Include="libraries\lua\ltable.h" />
+    <ClInclude Include="libraries\lua\ltm.h" />
+    <ClInclude Include="libraries\lua\lua.h" />
+    <ClInclude Include="libraries\lua\lua.hpp" />
+    <ClInclude Include="libraries\lua\luaconf.h" />
+    <ClInclude Include="libraries\lua\lualib.h" />
+    <ClInclude Include="libraries\lua\lundump.h" />
+    <ClInclude Include="libraries\lua\lvm.h" />
+    <ClInclude Include="libraries\lua\lzio.h" />
+    <ClInclude Include="libraries\sol\sol.hpp" />
+    <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\EventBus.h" />
+    <ClInclude Include="src\AssetManager.h" />
+    <ClInclude Include="src\Components.h" />
+    <ClInclude Include="src\Pool.h" />
+    <ClInclude Include="src\Component.h" />
+    <ClInclude Include="src\ECS.h" />
+    <ClInclude Include="src\MovementSystem.h" />
+    <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\SceneTest.h" />
     <ClInclude Include="src\EventManager.h" />
     <ClInclude Include="libraries\SDL2\include\SDL_image.h" />
@@ -177,7 +267,7 @@
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Circle.h" />
     <ClInclude Include="src\ShipManuever.h" />
-    <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\Events.h" />
     <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\ScenePatternCommand.h" />
     <ClInclude Include="src\ScenePatternObserver.h" />
@@ -279,15 +369,14 @@
     <ClInclude Include="src\UIText.h" />
     <ClInclude Include="src\Constants.h" />
     <ClInclude Include="src\Vec2.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="src\Scene_Template.txt" />
+    <ClInclude Include="src\Systems.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\SDL2\lib\x86\SDL2.dll" />
     <None Include="libraries\SDL2\lib\x86\SDL2_image.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="libraries\lua\liblua54.a" />
     <Library Include="libraries\SDL2\lib\x86\SDL2.lib" />
     <Library Include="libraries\SDL2\lib\x86\SDL2main.lib" />
     <Library Include="libraries\SDL2\lib\x86\SDL2test.lib" />

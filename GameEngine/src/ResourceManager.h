@@ -23,6 +23,10 @@ private:
 
 	static std::map<std::string, SDL_Texture*> mAssetMap;
 
+private:
+	ResourceManager() {}
+	~ResourceManager() {}
+
 public:
 	static SDL_Texture* GetTileMapTexture() { return mTileMapTexture; }
 	static SDL_Texture* GetMenuIconsTexture() { return mMenuIconsTexture; }
@@ -61,8 +65,4 @@ public:
 
 		mAssetMap.clear();
 	}
-
-private:
-	ResourceManager() {}
-	~ResourceManager() {}
 };

@@ -17,6 +17,10 @@ class SceneManager
 private:
 	static std::unique_ptr<Scene> mCurrentScene;
 
+private:
+	SceneManager() {};
+	~SceneManager() {};
+
 public:
 	static void LoadScene();
 
@@ -25,8 +29,4 @@ public:
 	static void CurrentSceneRender();
 
 	static void CurrentSceneShutdown();
-
-private:
-	SceneManager() {};
-	~SceneManager() {};
 };

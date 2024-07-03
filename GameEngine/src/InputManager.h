@@ -18,6 +18,8 @@ private:
 	static bool mKeyReleasedA;
 	static float mKeyHeldTimeA;
 
+	static bool mKeyPressedB;
+
 	static bool mKeyPressedD;
 	static bool mKeyHeldD;
 	static bool mKeyReleasedD;
@@ -45,6 +47,10 @@ private:
 	static Command* mCommandS;
 	static Command* mCommandW;
 
+private:
+	InputManager() {}
+	~InputManager() {}
+
 public:
 	static void Update(const float dt);
 
@@ -58,6 +64,8 @@ public:
 	static inline const bool KeyHeldA() { return mKeyHeldA; }
 	static inline const bool KeyReleasedA() { return mKeyReleasedA; }
 	static inline const float KeyHeldTimeA() { return mKeyHeldTimeA; }
+
+	static inline const bool KeyPressedB() { return mKeyPressedB; }
 
 	static inline const bool KeyPressedD() { return mKeyPressedD; }
 	static inline const bool KeyHeldD() { return mKeyHeldD; }
@@ -87,8 +95,4 @@ public:
 	
 	static void ClearCommands();
 	static Command* GetCommand();
-
-private:
-	InputManager() {}
-	~InputManager() {}
 };

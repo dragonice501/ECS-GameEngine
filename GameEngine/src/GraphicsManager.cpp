@@ -5,22 +5,22 @@
 
 #include <iostream>
 
-int GraphicsManager::windowWidth = 0;
-int GraphicsManager::windowHeight = 0;
-int GraphicsManager::screenWidth = 0;
-int GraphicsManager::screenHeight = 0;
+size_t GraphicsManager::mWindowWidth = 0;
+size_t GraphicsManager::mWindowHeight = 0;
+size_t GraphicsManager::mScreenWidth = 0;
+size_t GraphicsManager::mScreenHeight = 0;
 
-uint32_t* GraphicsManager::colorBuffer = nullptr;
-SDL_Texture* GraphicsManager::colorBufferTexture = nullptr;
-SDL_Window* GraphicsManager::window = nullptr;
-SDL_Renderer* GraphicsManager::renderer = nullptr;
+uint32_t* GraphicsManager::mColorBuffer = nullptr;
+SDL_Texture* GraphicsManager::mColorBufferTexture = nullptr;
+SDL_Window* GraphicsManager::mWindow = nullptr;
+SDL_Renderer* GraphicsManager::mRenderer = nullptr;
 
-SDL_Rect GraphicsManager::camera;
+SDL_Rect GraphicsManager::mCamera;
 
-Vec2 GraphicsManager::screenOffset = { 0.0f, 0.0f };
-float GraphicsManager::screenZoom = 1.0f;
+Vec2 GraphicsManager::mScreenOffset = { 0.0f, 0.0f };
+float GraphicsManager::mScreenZoom = 1.0f;
 
-size_t GraphicsManager::subdivisionSize = 10;
+size_t GraphicsManager::mSubdivisionSize = 10;
 
 bool GraphicsManager::OpenWindow()
 {
@@ -32,111 +32,96 @@ bool GraphicsManager::OpenWindow()
 
     SDL_DisplayMode display_mode;
     SDL_GetCurrentDisplayMode(0, &display_mode);
-    windowWidth = display_mode.w;
-    windowHeight = display_mode.h;
-    windowWidth = 1280;
-    windowHeight = 720;
+    mWindowWidth = display_mode.w;
+    mWindowHeight = display_mode.h;
+    mWindowWidth = 1280;
+    mWindowHeight = 720;
 
-    screenWidth = windowWidth * SCREEN_SCALE;
-    screenHeight = windowHeight * SCREEN_SCALE;
+    mScreenWidth = mWindowWidth * SCREEN_SCALE;
+    mScreenHeight = mWindowHeight * SCREEN_SCALE;
 
-    window = SDL_CreateWindow(nullptr, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_BORDERLESS);
-    if (!window)
+    mWindow = SDL_CreateWindow(nullptr, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, mWindowWidth, mWindowHeight, SDL_WINDOW_BORDERLESS);
+    if (!mWindow)
     {
         std::cerr << "Error creating SDL window" << std::endl;
         return false;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (!renderer)
+    mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (!mRenderer)
     {
         std::cerr << "Error creating SDL renderer" << std::endl;
         return false;
     }
 
-    colorBuffer = new uint32_t[screenWidth * screenHeight];
-    colorBufferTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, screenWidth, screenHeight);
+    mColorBuffer = new uint32_t[mScreenWidth * mScreenHeight];
+    mColorBufferTexture = SDL_CreateTexture(mRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, mScreenWidth, mScreenHeight);
+
+    mCamera.x = 0;
+    mCamera.y = 0;
+    mCamera.w = mWindowWidth;
+    mCamera.h = mWindowHeight;
 
     return true;
 }
 
 void GraphicsManager::CloseWindow(void)
 {
-    delete[] colorBuffer;
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    if(mColorBuffer) delete[] mColorBuffer;
+    SDL_DestroyRenderer(mRenderer);
+    SDL_DestroyWindow(mWindow);
     SDL_Quit();
-}
-
-int GraphicsManager::WindowWidth()
-{
-    return windowWidth;
-}
-
-int GraphicsManager::WindowHeight()
-{
-    return windowHeight;
-}
-
-int GraphicsManager::ScreenWidth()
-{
-    return screenWidth;
-}
-
-int GraphicsManager::ScreenHeight()
-{
-    return screenHeight;
 }
 
 void GraphicsManager::AdjustScreenOffset(const Vec2& offset)
 {
-    screenOffset.x += offset.x;
-    screenOffset.y += offset.y;
+    mScreenOffset.x += offset.x;
+    mScreenOffset.y += offset.y;
 }
 
 void GraphicsManager::ResetScreenOffset()
 {
-    screenOffset = { 0.0f, 0.0f };
+    mScreenOffset = { 0.0f, 0.0f };
 }
 
 void GraphicsManager::ScrollZoom(const int& scroll)
 {
-    screenZoom += static_cast<float>(scroll) * 0.25f;
+    mScreenZoom += static_cast<float>(scroll) * 0.25f;
 }
 
 bool GraphicsManager::CircleOffScreen(const int& x, const int& y, const float& radius)
 {
     return
-        x + radius + screenOffset.x < 0 ||
-        x - radius + screenOffset.x > screenWidth ||
-        y + radius + screenOffset.y < 0 ||
-        y - radius + screenOffset.y > screenHeight;
+        x + radius + mScreenOffset.x < 0 ||
+        x - radius + mScreenOffset.x > mScreenWidth ||
+        y + radius + mScreenOffset.y < 0 ||
+        y - radius + mScreenOffset.y > mScreenHeight;
 
 }
 
 void GraphicsManager::ClearScreen(const uint32_t& color)
 {
-    for (int i = 0; i < screenWidth * screenHeight; i++)
+    for (int i = 0; i < mScreenWidth * mScreenHeight; i++)
     {
-        colorBuffer[i] = color;
+        mColorBuffer[i] = color;
     }
 
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(mRenderer);
 }
 
 void GraphicsManager::PresentRender()
 {
-    SDL_UpdateTexture(colorBufferTexture, nullptr, colorBuffer, sizeof(uint32_t) * screenWidth);
-    SDL_RenderCopy(renderer, colorBufferTexture, nullptr, nullptr);
+    SDL_UpdateTexture(mColorBufferTexture, nullptr, mColorBuffer, sizeof(uint32_t) * mScreenWidth);
+    SDL_RenderCopy(mRenderer, mColorBufferTexture, nullptr, nullptr);
 
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(mRenderer);
 }
 
 void GraphicsManager::DrawPixel(const int x, const int y, const uint32_t color)
 {
-    if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight) return;
+    if (x < 0 || x >= mScreenWidth || y < 0 || y >= mScreenHeight) return;
 
-    colorBuffer[x + y * screenWidth] = color;
+    mColorBuffer[x + y * mScreenWidth] = color;
 }
 
 void GraphicsManager::DrawLine(const int x0, const int y0, const int x1, const int y1, const uint32_t color, const bool lockToScreen)
@@ -156,7 +141,7 @@ void GraphicsManager::DrawLine(const int x0, const int y0, const int x1, const i
         if(lockToScreen)
             DrawPixel(static_cast<int>(x), static_cast<int>(y), color);
         else
-            DrawPixel(static_cast<int>(x + screenOffset.x), static_cast<int>(y + screenOffset.y), color);
+            DrawPixel(static_cast<int>(x + mScreenOffset.x), static_cast<int>(y + mScreenOffset.y), color);
         x += xIncrement;
         y += yIncrement;
     }
@@ -164,9 +149,9 @@ void GraphicsManager::DrawLine(const int x0, const int y0, const int x1, const i
 
 void GraphicsManager::DrawGrid(const int gridWidth, const int gridHeight, const uint32_t color)
 {
-    for (int y = 0; y < screenHeight; y++)
+    for (int y = 0; y < mScreenHeight; y++)
     {
-        for (int x = 0; x < screenWidth; x++)
+        for (int x = 0; x < mScreenWidth; x++)
         {
             if (x % gridWidth == 0 || y % gridHeight == 0)
                 DrawPixel(x, y, color);
@@ -174,7 +159,7 @@ void GraphicsManager::DrawGrid(const int gridWidth, const int gridHeight, const 
     }
 }
 
-void GraphicsManager::DrawCruve(const Curve& curve, const uint32_t color)
+void GraphicsManager::DrawCurve(const Curve& curve, const uint32_t color)
 {
     Vec2 start = curve.start;
     Vec2 end;
@@ -199,16 +184,16 @@ void GraphicsManager::DrawAARect(const int x, const int y, const int width, cons
     DrawPixel(x + width / 2, y + height / 2, color);
 
     for (int i = x; i < x + width; i++)
-        colorBuffer[i + y * screenWidth] = color;
+        mColorBuffer[i + y * mScreenWidth] = color;
 
     for (int i = y; i < y + height; i++)
-        colorBuffer[x + i * screenWidth] = color;
+        mColorBuffer[x + i * mScreenWidth] = color;
 
     for (int i = y; i < y + height + 1; i++)
-        colorBuffer[(x + width) + i * screenWidth] = color;
+        mColorBuffer[(x + width) + i * mScreenWidth] = color;
 
     for (int i = x; i < x + width + 1; i++)
-        colorBuffer[i + (y + height) * screenWidth] = color;
+        mColorBuffer[i + (y + height) * mScreenWidth] = color;
 }
 
 void GraphicsManager::DrawAARect(const AARectangle& rect, const uint32_t color)
@@ -219,16 +204,16 @@ void GraphicsManager::DrawAARect(const AARectangle& rect, const uint32_t color)
     int height = rect.bottomRight.y - rect.topLeft.y;
 
     for (int i = x; i < x + width; i++)
-        colorBuffer[i + y * screenWidth] = color;
+        mColorBuffer[i + y * mScreenWidth] = color;
 
     for (int i = y; i < y + height; i++)
-        colorBuffer[x + i * screenWidth] = color;
+        mColorBuffer[x + i * mScreenWidth] = color;
 
     for (int i = y; i < y + height + 1; i++)
-        colorBuffer[(x + width) + i * screenWidth] = color;
+        mColorBuffer[(x + width) + i * mScreenWidth] = color;
 
     for (int i = x; i < x + width + 1; i++)
-        colorBuffer[i + (y + height) * screenWidth] = color;
+        mColorBuffer[i + (y + height) * mScreenWidth] = color;
 }
 
 void GraphicsManager::DrawFillAARect(const int x, const int y, const int width, const int height, const uint32_t color)
@@ -313,11 +298,11 @@ void GraphicsManager::DrawFillCircle(const int x, const int y, const int radius,
 
             if (point.MagnitudeSquared() < pRadius * pRadius)
             {
-                DrawPixel(j + screenOffset.x, i + screenOffset.y, color);
+                DrawPixel(j + mScreenOffset.x, i + mScreenOffset.y, color);
 
-                DrawPixel(j + screenOffset.x + (x - j) * 2, i + screenOffset.y, color);
-                DrawPixel(j + screenOffset.x, i + screenOffset.y + (y - i) * 2, color);
-                DrawPixel(j + screenOffset.x + (x - j) * 2, i + screenOffset.y + (y - i) * 2, color);
+                DrawPixel(j + mScreenOffset.x + (x - j) * 2, i + mScreenOffset.y, color);
+                DrawPixel(j + mScreenOffset.x, i + mScreenOffset.y + (y - i) * 2, color);
+                DrawPixel(j + mScreenOffset.x + (x - j) * 2, i + mScreenOffset.y + (y - i) * 2, color);
             }
         }
     }
@@ -327,12 +312,12 @@ void GraphicsManager::DrawFillCircleTessellated(const int x, const int y, const 
 {
     if (radius <= 0) return;
 
-    size_t upperTen = radius / subdivisionSize;
-    if (radius % subdivisionSize > 0) upperTen++;
+    size_t upperTen = radius / mSubdivisionSize;
+    if (radius % mSubdivisionSize > 0) upperTen++;
 
     size_t subdivisions = upperTen * 2;
-    float topX = x - upperTen * subdivisionSize;
-    float topY = y - upperTen * subdivisionSize;
+    float topX = x - upperTen * mSubdivisionSize;
+    float topY = y - upperTen * mSubdivisionSize;
     float squareDistance = radius * radius;
     AARectangle rect;
 
@@ -340,7 +325,7 @@ void GraphicsManager::DrawFillCircleTessellated(const int x, const int y, const 
     {
         for (size_t j = 0; j < subdivisions; j++)
         {
-            rect = AARectangle(topX + j * subdivisionSize, topY + i * subdivisionSize, subdivisionSize, subdivisionSize);
+            rect = AARectangle(topX + j * mSubdivisionSize, topY + i * mSubdivisionSize, mSubdivisionSize, mSubdivisionSize);
             if (!AARectInsideScreen(rect))
             {
                 continue;
@@ -460,7 +445,7 @@ void GraphicsManager::DrawTexture(const int x, const int y, const int width, con
 {
     SDL_Rect dstRect = {x - (width / 2), y - (height / 2), width, height};
     float rotationDeg = rotation * 57.2958;
-    SDL_RenderCopyEx(renderer, texture, nullptr, &dstRect, rotationDeg, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(mRenderer, texture, nullptr, &dstRect, rotationDeg, nullptr, SDL_FLIP_NONE);
 }
 
 void GraphicsManager::DrawChar(const int x, const int y, const char character, const uint32_t color, const bool lockToScreen)
@@ -480,7 +465,7 @@ void GraphicsManager::DrawChar(const int x, const int y, const char character, c
                 if(lockToScreen)
                     DrawPixel(x + k, y + j + yOffset, color);
                 else
-                    DrawPixel(x + k + screenOffset.x, y + j + yOffset + screenOffset.y, color);
+                    DrawPixel(x + k + mScreenOffset.x, y + j + yOffset + mScreenOffset.y, color);
             }
         }
     }
@@ -585,21 +570,21 @@ void GraphicsManager::DisplayBresenhamCircle(const int xc, const int yc, const i
     }
     else
     {
-        DrawPixel(xc + x0 + screenOffset.x, yc + y0 + screenOffset.y, color);
-        DrawPixel(xc - x0 + screenOffset.x, yc + y0 + screenOffset.y, color);
-        DrawPixel(xc + x0 + screenOffset.x, yc - y0 + screenOffset.y, color);
-        DrawPixel(xc - x0 + screenOffset.x, yc - y0 + screenOffset.y, color);
-        DrawPixel(xc + y0 + screenOffset.x, yc + x0 + screenOffset.y, color);
-        DrawPixel(xc - y0 + screenOffset.x, yc + x0 + screenOffset.y, color);
-        DrawPixel(xc + y0 + screenOffset.x, yc - x0 + screenOffset.y, color);
-        DrawPixel(xc - y0 + screenOffset.x, yc - x0 + screenOffset.y, color);
+        DrawPixel(xc + x0 + mScreenOffset.x, yc + y0 + mScreenOffset.y, color);
+        DrawPixel(xc - x0 + mScreenOffset.x, yc + y0 + mScreenOffset.y, color);
+        DrawPixel(xc + x0 + mScreenOffset.x, yc - y0 + mScreenOffset.y, color);
+        DrawPixel(xc - x0 + mScreenOffset.x, yc - y0 + mScreenOffset.y, color);
+        DrawPixel(xc + y0 + mScreenOffset.x, yc + x0 + mScreenOffset.y, color);
+        DrawPixel(xc - y0 + mScreenOffset.x, yc + x0 + mScreenOffset.y, color);
+        DrawPixel(xc + y0 + mScreenOffset.x, yc - x0 + mScreenOffset.y, color);
+        DrawPixel(xc - y0 + mScreenOffset.x, yc - x0 + mScreenOffset.y, color);
     }
 }
 
 bool GraphicsManager::AARectInsideScreen(const AARectangle& rect)
 {
-    if (rect.topLeft.x > screenWidth ||
-        rect.topLeft.y > screenHeight ||
+    if (rect.topLeft.x > mScreenWidth ||
+        rect.topLeft.y > mScreenHeight ||
         rect.bottomRight.x < 0 ||
         rect.bottomRight.y < 0)
         return false;
@@ -611,6 +596,6 @@ void GraphicsManager::ClipAARectAgainstScreen(AARectangle& rect)
 {
     if (rect.topLeft.x < 0) rect.topLeft.x = 0;
     if (rect.topLeft.y < 0) rect.topLeft.y = 0;
-    if (rect.bottomRight.x > screenWidth) rect.bottomRight.x = screenWidth;
-    if (rect.bottomRight.y > screenHeight) rect.bottomRight.y = screenHeight;
+    if (rect.bottomRight.x > mScreenWidth) rect.bottomRight.x = mScreenWidth;
+    if (rect.bottomRight.y > mScreenHeight) rect.bottomRight.y = mScreenHeight;
 }

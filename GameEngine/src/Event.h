@@ -2,5 +2,6 @@
 
 class Event
 {
-
+public:
+	Event() {}
 };

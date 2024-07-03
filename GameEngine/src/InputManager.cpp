@@ -1,8 +1,10 @@
 #include "InputManager.h"
 
 #include "Engine.h"
+#include "Events.h"
 
 #include <SDL.h>
+#include <imgui_impl_sdl.h>
 #include <iostream>
 
 bool InputManager::mMouseLeftClick = false;
@@ -15,6 +17,8 @@ bool InputManager::mKeyPressedA = false;
 bool InputManager::mKeyHeldA = false;
 bool InputManager::mKeyReleasedA = false;
 float InputManager::mKeyHeldTimeA = 0.0f;
+
+bool InputManager::mKeyPressedB = false;
 
 bool InputManager::mKeyPressedD = false;
 bool InputManager::mKeyHeldD = false;
@@ -67,6 +71,11 @@ void InputManager::Update(const float dt)
         mKeyHeldTimeA = 0.0f;
     }
 
+    if (mKeyPressedB)
+    {
+        mKeyPressedB = false;
+    }
+
     if (mKeyPressedD || mKeyHeldD)
     {
         mKeyPressedD = false;
@@ -79,6 +88,10 @@ void InputManager::Update(const float dt)
         mKeyHeldTimeD = 0.0f;
     }
 
+    if (mKeyPressedE) mKeyPressedE = false;
+
+    if (mKeyPressedO) mKeyPressedO = false;
+    
     if (mKeyPressedS || mKeyHeldS)
     {
         mKeyPressedS = false;
@@ -90,6 +103,8 @@ void InputManager::Update(const float dt)
         mKeyReleasedS = false;
         mKeyHeldTimeS = 0.0f;
     }
+    
+    if (mKeyPressedR) mKeyPressedR = false;
 
     if (mKeyPressedW || mKeyHeldW)
     {
@@ -103,9 +118,6 @@ void InputManager::Update(const float dt)
         mKeyHeldTimeW = 0.0f;
     }
 
-    if (mKeyPressedE) mKeyPressedE = false;
-    if (mKeyPressedO) mKeyPressedO = false;
-    if (mKeyPressedR) mKeyPressedR = false;
     if (mKeyPressedZ) mKeyPressedZ = false;
 
     if (mKeyPressedSpace) mKeyPressedSpace = false;
@@ -113,6 +125,18 @@ void InputManager::Update(const float dt)
     SDL_Event sdlEvent;
     while (SDL_PollEvent(&sdlEvent))
     {
+        // Imgui SDL
+        ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
+        ImGuiIO& io = ImGui::GetIO();
+
+        int mouseX, mouseY;
+        const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
+
+        io.MousePos = ImVec2(mouseX, mouseY);
+        io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
+        io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
+
+        // SDL Events
         switch (sdlEvent.type)
         {
         case SDL_MOUSEMOTION:
@@ -148,8 +172,14 @@ void InputManager::Update(const float dt)
                 {
                     mKeyPressedA = true;
                     mKeyHeldTimeA = 0.0f;
+
+                    Engine::Instance().GetEventBus()->EmitEvent<KeyPressedEvent>(SDLK_a);
                 }
                 break;
+            }
+            case SDLK_b:
+            {
+                mKeyPressedB = true;
             }
             case SDLK_d:
             {
@@ -157,6 +187,8 @@ void InputManager::Update(const float dt)
                 {
                     mKeyPressedD = true;
                     mKeyHeldTimeD = 0.0f;
+
+                    Engine::Instance().GetEventBus()->EmitEvent<KeyPressedEvent>(SDLK_d);
                 }
                 break;
             }
@@ -174,6 +206,8 @@ void InputManager::Update(const float dt)
                 {
                     mKeyPressedS = true;
                     mKeyHeldTimeS = 0.0f;
+
+                    Engine::Instance().GetEventBus()->EmitEvent<KeyPressedEvent>(SDLK_s);
                 }
                 break;
             }
@@ -199,6 +233,8 @@ void InputManager::Update(const float dt)
                 {
                     mKeyPressedW = true;
                     mKeyHeldTimeW = 0.0f;
+
+                    Engine::Instance().GetEventBus()->EmitEvent<KeyPressedEvent>(SDLK_w);
                 }
                 break;
             }
@@ -213,6 +249,8 @@ void InputManager::Update(const float dt)
             case SDLK_SPACE:
             {
                 mKeyPressedSpace = true;
+
+                Engine::Instance().GetEventBus()->EmitEvent<KeyPressedEvent>(SDLK_SPACE);
                 break;
             }
             case SDLK_ESCAPE:

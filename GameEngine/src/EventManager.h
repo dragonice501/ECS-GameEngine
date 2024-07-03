@@ -11,6 +11,10 @@ class EventManager
 private:
 	static std::vector<Observer*> mObservers;
 
+private:
+	EventManager() {}
+	~EventManager() {}
+
 public:
 	static void AddObserver(Observer* observer) { mObservers.push_back(observer); }
 	static void RemoveObserver(Observer* observer)
@@ -33,7 +37,4 @@ public:
 		}
 	}
 
-private:
-	EventManager() {}
-	~EventManager() {}
 };

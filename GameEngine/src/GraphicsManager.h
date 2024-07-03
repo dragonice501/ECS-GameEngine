@@ -28,37 +28,48 @@ public:
     };
 
 private:
-    static int windowWidth;
-    static int windowHeight;
-    static int screenWidth;
-    static int screenHeight;
+    static size_t mWindowWidth;
+    static size_t mWindowHeight;
+    static size_t mScreenWidth;
+    static size_t mScreenHeight;
 
-    static uint32_t* colorBuffer;
-    static SDL_Texture* colorBufferTexture;
-    static SDL_Window* window;
-    static SDL_Renderer* renderer;
+    static uint32_t* mColorBuffer;
+    static SDL_Texture* mColorBufferTexture;
+    static SDL_Window* mWindow;
+    static SDL_Renderer* mRenderer;
 
-    static SDL_Rect camera;
+    static SDL_Rect mCamera;
 
-    static Vec2 screenOffset;
-    static float screenZoom;
+    static Vec2 mScreenOffset;
+    static float mScreenZoom;
 
-    static size_t clipAARectSize;
-    static size_t subdivisionSize;
+    static size_t mClipAARectSize;
+    static size_t mSubdivisionSize;
+
+private:
+    GraphicsManager() {}
+    ~GraphicsManager() {}
+
+    static void SwapInt(int& a, int& b);
+    static void SwapFloat(float& a, float& b);
+    static void SwapVec2(Vec2& a, Vec2& b);
+
+    static void DisplayBresenhamCircle(const int xc, const int yc, const int x0, const int y0, const uint32_t color, const bool lockToScreen = true);
+    static bool AARectInsideScreen(const AARectangle& rect);
+    static void ClipAARectAgainstScreen(AARectangle& rect);
 
 public:
     static bool OpenWindow();
     static void CloseWindow();
 
-    static SDL_Renderer* GetRenderer() { return renderer; }
+    inline static SDL_Renderer* GetRenderer() { return mRenderer; }
 
-    static int WindowWidth();
-    static int WindowHeight();
-    static int ScreenWidth();
-    static int ScreenHeight();
+    inline static size_t WindowWidth() { return mWindowWidth; }
+    inline static size_t WindowHeight() { return mWindowHeight; }
+    inline static size_t ScreenWidth() { return mScreenWidth; }
+    inline static size_t ScreenHeight() { return mScreenHeight; }
 
-    static SDL_Renderer* Renderer() { return renderer; }
-    static SDL_Rect& Camera() { return camera; }
+    inline static SDL_Rect& GetCamera() { return mCamera; }
 
     static void AdjustScreenOffset(const Vec2& offset);
     static void ResetScreenOffset();
@@ -74,7 +85,7 @@ public:
     static void DrawLine(const int x0, const int y0, const int x1, const int y1, const uint32_t color, const bool lockToScreen = true);
     static void DrawGrid(const int gridWidth, const int gridHeight, const uint32_t color);
 
-    static void DrawCruve(const Curve& curve, const uint32_t color);
+    static void DrawCurve(const Curve& curve, const uint32_t color);
 
     static void DrawAARect(const int x, const int y, const int width, const int height, const uint32_t color);
     static void DrawAARect(const AARectangle& rect, const uint32_t color);
@@ -104,16 +115,4 @@ public:
         const bool lockToScreen = true);
 
     static void DrawSpriteRect(SDL_Texture* texture, SDL_Rect& srcRect, SDL_Rect& dstRect);
-
-private:
-    GraphicsManager() {}
-    ~GraphicsManager() {}
-
-    static void SwapInt(int& a, int& b);
-    static void SwapFloat(float& a, float& b);
-    static void SwapVec2(Vec2& a, Vec2& b);
-
-    static void DisplayBresenhamCircle(const int xc, const int yc, const int x0, const int y0, const uint32_t color, const bool lockToScreen = true);
-    static bool AARectInsideScreen(const AARectangle& rect);
-    static void ClipAARectAgainstScreen(AARectangle& rect);
 };

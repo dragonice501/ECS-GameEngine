@@ -62,7 +62,7 @@ struct Ship
 				curve.degree = 0.0f;
 				curve.length = manuever.manueverLength * 50.0f;
 				curve.normal = direction;
-				GraphicsManager::DrawCruve(curve, color);
+				GraphicsManager::DrawCurve(curve, color);
 				break;
 			}
 			case EManueverDirection::MD_BANK_RIGHT:
@@ -70,7 +70,7 @@ struct Ship
 				curve.degree = -45.0f;
 				curve.length = manuever.manueverLength * 50.0f;
 				curve.normal = direction;
-				GraphicsManager::DrawCruve(curve, color);
+				GraphicsManager::DrawCurve(curve, color);
 				break;
 			}
 			case EManueverDirection::MD_HARD_RIGHT:
@@ -78,7 +78,7 @@ struct Ship
 				curve.degree = -90.0f;
 				curve.length = manuever.manueverLength * 50.0f;
 				curve.normal = direction;
-				GraphicsManager::DrawCruve(curve, color);
+				GraphicsManager::DrawCurve(curve, color);
 				break;
 			}
 			case EManueverDirection::MD_BANK_LEFT:
@@ -86,7 +86,7 @@ struct Ship
 				curve.degree = 45.0f;
 				curve.length = manuever.manueverLength * 50.0f;
 				curve.normal = direction;
-				GraphicsManager::DrawCruve(curve, color);
+				GraphicsManager::DrawCurve(curve, color);
 				break;
 			}
 			case EManueverDirection::MD_HARD_LEFT:
@@ -94,7 +94,7 @@ struct Ship
 				curve.degree = 90.0f;
 				curve.length = manuever.manueverLength * 50.0f;
 				curve.normal = direction;
-				GraphicsManager::DrawCruve(curve, color);
+				GraphicsManager::DrawCurve(curve, color);
 				break;
 			}
 			}

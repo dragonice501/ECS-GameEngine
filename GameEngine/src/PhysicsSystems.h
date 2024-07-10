@@ -3,13 +3,12 @@
 #include "ECS.h"
 #include "Components.h"
 
-#include "Logger.h"
-
-class MovementSystem : public System
+class ParticlePhysicsSystem : public System
 {
 public:
-	MovementSystem()
+	ParticlePhysicsSystem()
 	{
+		RequireComponent<ParticleComponent>();
 		RequireComponent<TransformComponent>();
 		RequireComponent<RigidbodyComponent>();
 	}
@@ -19,8 +18,9 @@ public:
 		for (auto entity : GetSystemEntities())
 		{
 			auto& transform = entity.GetComponent<TransformComponent>();
-			const auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
+			auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
 
+			rigidbody.previousPosition = transform.position;
 			transform.position += rigidbody.velocity * deltaTime;
 		}
 	}

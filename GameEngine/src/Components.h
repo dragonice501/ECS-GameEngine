@@ -75,6 +75,23 @@ struct KeyboardControlComponent
 	}
 };
 
+struct LineComponent
+{
+	Vec2 p1;
+	Vec2 p2;
+
+	LineComponent(const Vec2& p1 = Vec2(), const Vec2& p2 = Vec2())
+	{
+		this->p1 = p1;
+		this->p2 = p2;
+	}
+};
+
+struct ParticleComponent
+{
+	ParticleComponent() = default;
+};
+
 struct ProjectileEmitterComponent
 {
 	Vec2 projectileVelocity;
@@ -112,10 +129,12 @@ struct ProjectileComponent
 struct RigidbodyComponent
 {
 	Vec2 velocity;
+	Vec2 previousPosition;
 
 	RigidbodyComponent(Vec2 velocity = Vec2(0.0f, 0.0f))
 	{
 		this->velocity = velocity;
+		this->previousPosition = velocity;
 	}
 };
 

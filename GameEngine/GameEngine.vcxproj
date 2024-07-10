@@ -215,6 +215,11 @@
     <ClCompile Include="src\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AnimationSystems.h" />
+    <ClInclude Include="src\InputSystems.h" />
+    <ClInclude Include="src\PhysicsSystems.h" />
+    <ClInclude Include="src\ScriptSystems.h" />
+    <ClInclude Include="src\CollisionSystems.h" />
     <ClInclude Include="libraries\imgui\imconfig.h" />
     <ClInclude Include="libraries\imgui\imgui.h" />
     <ClInclude Include="libraries\imgui\imgui_impl_sdl.h" />
@@ -250,6 +255,7 @@
     <ClInclude Include="libraries\lua\lvm.h" />
     <ClInclude Include="libraries\lua\lzio.h" />
     <ClInclude Include="libraries\sol\sol.hpp" />
+    <ClInclude Include="src\RenderSystems.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventBus.h" />
     <ClInclude Include="src\AssetManager.h" />

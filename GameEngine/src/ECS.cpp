@@ -27,6 +27,11 @@ bool Entity::BelongsToGroup(const std::string& group)
     return mRegistry->EntityBelongsToGroup(*this, group);
 }
 
+void System::SetRegsitry(Registry* registry)
+{
+    mRegistry = registry;
+}
+
 void System::AddEntityToSystem(const Entity& entity)
 {
     mEntities.push_back(entity);
@@ -78,6 +83,19 @@ void Registry::Update()
     mEntitiesToBeKilled.clear();
 }
 
+void Registry::UpdateSystems()
+{
+    for (auto system : mSystems)
+    {
+
+    }
+}
+
+void Registry::DrawRenderSystems()
+{
+
+}
+
 Entity Registry::CreateEntity()
 {
     size_t entityId;
@@ -94,8 +112,6 @@ Entity Registry::CreateEntity()
 
     Entity entity(entityId, this);
     mEntitiesToBeAdded.insert(entity);
-
-    Logger::Log("Entity created with id " + std::to_string(entityId));
 
     return entity;
 }
@@ -118,7 +134,7 @@ bool Registry::EntityHasTag(Entity entity, const std::string& tag) const
     return mEntityPerTag.find(tag)->second == entity;
 }
 
-Entity Registry::GetEntityByTag(const std::string& tag) const
+Entity& Registry::GetEntityByTag(const std::string& tag)
 {
     return mEntityPerTag.at(tag);
 }
@@ -148,7 +164,7 @@ bool Registry::EntityBelongsToGroup(Entity entity, const std::string& group) con
     return groupEntities.find(entity) != groupEntities.end();
 }
 
-std::vector<Entity> Registry::GetEntitiesByGroup(const std::string& group) const
+std::vector<Entity> Registry::GetEntitiesByGroup(const std::string& group)
 {
     auto& setOfEntities = mEntitiesPerGroup.at(group);
 

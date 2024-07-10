@@ -14,11 +14,13 @@
 #include "Pool.h"
 #include "Constants.h"
 
+class Registry;
+
 class Entity
 {
 private:
 	size_t mId;
-	class Registry* mRegistry;
+	Registry* mRegistry;
 
 public:
 	Entity() {}
@@ -53,14 +55,16 @@ public:
 
 class System
 {
-private:
+protected:
 	Signature mComponentSignature;
 	std::vector<Entity> mEntities;
+	Registry* mRegistry;
 
 public:
 	System() = default;
 	~System() = default;
 
+	void SetRegsitry(Registry* registry);
 	void AddEntityToSystem(const Entity& entity);
 	void RemoveEntity(const Entity& entity);
 	std::vector<Entity>& GetSystemEntities();
@@ -97,18 +101,20 @@ public:
 	Registry() = default;
 
 	void Update();
+	void UpdateSystems();
+	void DrawRenderSystems();
 
 	Entity CreateEntity();
 	void KillEntity(Entity entity);
 
 	void TagEntity(Entity entity, const std::string& tag);
 	bool EntityHasTag(Entity entity, const std::string& tag) const;
-	Entity GetEntityByTag(const std::string& tag) const;
+	Entity& GetEntityByTag(const std::string& tag);
 	void RemoveEntityTag(Entity entity);
 
 	void GroupEntity(Entity entity, const std::string& group);
 	bool EntityBelongsToGroup(Entity entity, const std::string& group) const;
-	std::vector<Entity> GetEntitiesByGroup(const std::string& group) const;
+	std::vector<Entity> GetEntitiesByGroup(const std::string& group);
 	void RemoveEntityGroup(Entity entity);
 
 	template<typename TSystem, typename ...TArgs> void AddSystem(TArgs&& ...args);
@@ -145,10 +151,6 @@ inline void Registry::AddComponent(Entity entity, TArgs && ...args)
 
 	componentPool->Set(entityId, newComponent);
 	mEntityComponentSignatures[entityId].set(componentId);
-
-	//Logger::Log("Component " + std::to_string(componentId) + " was added to entity " + std::to_string(entityId));
-
-	//std::cout << "Component Id = " << componentId << " --> Pool Size: " << componentPool->Size() << std::endl;
 }
 
 template<typename TComponent>
@@ -161,8 +163,6 @@ inline void Registry::RemoveComponent(Entity entity)
 	componentPool->Remove(entityId);
 
 	mEntityComponentSignatures[entityId].set(componentId, false);
-
-	//Logger::Log("Component " + std::to_string(componentId) + " was removed entity " + std::to_string(entityId));
 }
 
 template<typename TComponent>
@@ -189,7 +189,11 @@ template<typename TSystem, typename ...TArgs>
 inline void Registry::AddSystem(TArgs && ...args)
 {
 	std::shared_ptr<TSystem> newSystem = std::make_shared<TSystem>(TSystem(std::forward<TArgs>(args)...));
-	mSystems.insert(std::make_pair(std::type_index(typeid(TSystem)), newSystem));
+
+	std::type_index typeIndex = std::type_index(typeid(TSystem));
+	mSystems.insert(std::make_pair(typeIndex, newSystem));
+
+	mSystems.at(typeIndex)->SetRegsitry(this);
 }
 
 template<typename TSystem>

@@ -6,7 +6,8 @@ struct Vec2
     float y;
 
     Vec2() : Vec2(0.0f, 0.0f) {}
-    Vec2(float x, float y);
+    Vec2(float p) : Vec2(p, p) {}
+    Vec2(float x, float y) : x(x), y(y) {}
     
     static inline const Vec2 Zero() { return Vec2(0.0f, 0.0f); }
     static inline const float Cross(const Vec2& a, const Vec2& b) { return (a.x * b.y) - (a.y * b.x); }
@@ -40,6 +41,8 @@ struct Vec2
     Vec2& Normalize();
     Vec2 UnitVector() const;
     Vec2 Normal() const;
+    Vec2 ProjectOnto(const Vec2& vec2);
+    Vec2 Reflect(const Vec2& plane);
 
     float Dot(const Vec2& v) const;
     float Cross(const Vec2& v) const;

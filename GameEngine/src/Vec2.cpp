@@ -2,10 +2,6 @@
 #include <math.h>
 #include <iostream>
 
-Vec2::Vec2(float x, float y): x(x), y(y) {
-
-}
-
 Vec2& Vec2::operator = (const Vec2& v) {
 	x = v.x;
 	y = v.y;
@@ -152,6 +148,22 @@ Vec2 Vec2::UnitVector() const {
 
 Vec2 Vec2::Normal() const {
 	return Vec2(y, -x).Normalize();
+}
+
+Vec2 Vec2::ProjectOnto(const Vec2& vec2)
+{
+	Vec2 unitVec2 = vec2.Normal();
+
+	float dot = Dot(unitVec2);
+
+	return unitVec2 * dot;
+}
+
+Vec2 Vec2::Reflect(const Vec2& normal)
+{
+	Vec2 current = *this;
+
+	return current - normal * (current.Dot(normal) * 2);
 }
 
 float Vec2::Dot(const Vec2& v) const {

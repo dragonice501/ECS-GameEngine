@@ -758,6 +758,24 @@
     <ClInclude Include="libraries\sol\sol.hpp">
       <Filter>Header Files\Sol</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderSystems.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionSystems.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScriptSystems.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsSystems.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AnimationSystems.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputSystems.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\SDL2\lib\x86\SDL2.dll" />

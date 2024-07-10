@@ -10,6 +10,9 @@
 #include "GameManager.h"
 
 #include "Systems.h"
+#include "PhysicsSystems.h"
+#include "RenderSystems.h"
+#include "ScriptSystems.h"
 #include "Components.h"
 
 #include <random>
@@ -83,6 +86,8 @@ void Engine::Run()
 
 		mTimePreviousFrame = SDL_GetTicks();
 
+		GraphicsManager::ClearScreen(0xFF212121);
+
 		// Update Input
 		InputManager::Update(mDeltaTime);
 		if (InputManager::KeyPressedB()) mIsDebug = !mIsDebug;
@@ -91,26 +96,29 @@ void Engine::Run()
 		mEventBus->Reset();
 
 		// Perfom event subscriptions
-		mRegistry->GetSystem<DamageSystem>().SubscribeToEvents();
-		mRegistry->GetSystem<KeyboardControlSystem>().SubscribeToEvents();
-		mRegistry->GetSystem<ProjectileEmitSystem>().SubscribeToEvents();
+		//mRegistry->GetSystem<DamageSystem>().SubscribeToEvents();
+		//mRegistry->GetSystem<KeyboardControlSystem>().SubscribeToEvents();
+		//mRegistry->GetSystem<ProjectileEmitSystem>().SubscribeToEvents();
 
 		// Update systems
 		mRegistry->Update();
-		mRegistry->GetSystem<AnimationSystem>().Update(mDeltaTime);
-		//mRegistry->GetSystem<Collision2DSystem>().Update();
-		mRegistry->GetSystem<MovementSystem>().Update(mDeltaTime);
-		mRegistry->GetSystem<CameraMovementSystem>().Update(25 * 64, 20 * 64);
-		mRegistry->GetSystem<ProjectileEmitSystem>().Update(mDeltaTime);
-		mRegistry->GetSystem<ProjectileSystem>().Update(mDeltaTime);
+
+		// Physics
+		mRegistry->GetSystem<ParticlePhysicsSystem>().Update(mDeltaTime);
+
+		// Collisions
+		mRegistry->GetSystem<Particle2DLine2DCollisionSystem>().Update(mDeltaTime);
+
+		// Scripts
 		mRegistry->GetSystem<ScriptSystem>().Update(mDeltaTime, SDL_GetTicks());
 
 		// Render
-		SDL_SetRenderDrawColor(GraphicsManager::GetRenderer(), 21, 21, 21, 255);
-		SDL_RenderClear(GraphicsManager::GetRenderer());
+		
 
-		mRegistry->GetSystem<RenderSystem>().Draw();
-		mRegistry->GetSystem<RenderTextSystem>().Draw();
+		mRegistry->GetSystem<RenderLineSystem>().Draw();
+		mRegistry->GetSystem<RenderParticleSystem>().Draw();
+		//mRegistry->GetSystem<RenderSystem>().Draw();
+		//mRegistry->GetSystem<RenderTextSystem>().Draw();
 
 		// Draw ImGui
 		if (mIsDebug)
@@ -118,27 +126,18 @@ void Engine::Run()
 			mRegistry->GetSystem<RenderGUISystem>().Draw();
 		}
 
+		GraphicsManager::RenderColorBuffer();
 		SDL_RenderPresent(GraphicsManager::GetRenderer());
 	}
 }
 
 void Engine::Setup()
 {
-	mRegistry->AddSystem<AnimationSystem>();
-	mRegistry->AddSystem<MovementSystem>();
-	mRegistry->AddSystem<RenderSystem>();
-	mRegistry->AddSystem<RenderTextSystem>();
-	mRegistry->AddSystem<RenderGUISystem>();
-	//mRegistry->AddSystem<Collision2DSystem>();
-	mRegistry->AddSystem<DamageSystem>();
-	mRegistry->AddSystem<KeyboardControlSystem>();
-	mRegistry->AddSystem<CameraMovementSystem>();
-	mRegistry->AddSystem<ProjectileEmitSystem>();
-	mRegistry->AddSystem<ProjectileSystem>();
 	mRegistry->AddSystem<ScriptSystem>();
 
 	mRegistry->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
 
 	lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::os);
-	GameManager::LoadLevel(2, mRegistry, lua);
+	GameManager::LoadMainScript(mRegistry, lua);
+	//GameManager::LoadLevel(2, mRegistry, lua);
 }

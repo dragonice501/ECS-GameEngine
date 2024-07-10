@@ -79,6 +79,7 @@ public:
     static bool CircleOffScreen(const int& x, const int& y, const float& radius);
 
     static void ClearScreen(const uint32_t& color);
+    static void RenderColorBuffer();
     static void PresentRender();
 
     static void DrawPixel(const int x, const int y, const uint32_t color);

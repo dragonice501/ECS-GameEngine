@@ -12,5 +12,6 @@ private:
 	~GameManager();
 
 public:
+	static void LoadMainScript(std::unique_ptr<Registry>& registry, sol::state& lua);
 	static void LoadLevel(size_t numLevel, std::unique_ptr<Registry>& registry, sol::state& lua);
 };

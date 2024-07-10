@@ -109,6 +109,12 @@ void GraphicsManager::ClearScreen(const uint32_t& color)
     SDL_RenderClear(mRenderer);
 }
 
+void GraphicsManager::RenderColorBuffer()
+{
+    SDL_UpdateTexture(mColorBufferTexture, nullptr, mColorBuffer, sizeof(uint32_t) * mScreenWidth);
+    SDL_RenderCopy(mRenderer, mColorBufferTexture, nullptr, nullptr);
+}
+
 void GraphicsManager::PresentRender()
 {
     SDL_UpdateTexture(mColorBufferTexture, nullptr, mColorBuffer, sizeof(uint32_t) * mScreenWidth);
